@@ -16,7 +16,7 @@ public class TotalTest {
     @BeforeAll
     public static void setUpAll() {
      driver=new ChromeDriver();
-     driver.manage().window().setSize(new Dimension(681, 718));
+     driver.manage().window().setSize(new Dimension(1200, 718));
      loginPage=new LoginPage(driver);
     }
 
@@ -27,39 +27,11 @@ public class TotalTest {
 
     @org.junit.jupiter.api.Test
     public void totalFlow() throws InterruptedException {
-       loginPage.loginValidUser(System.getProperty("user"),System.getProperty("password"));
-       Thread.sleep(3000);
-        {
-            WebElement element = driver.findElement(By.xpath("//*[@id=\"content\"]/aside/button"));
-            element.click();
-        }
-        {
-            WebElement element = driver.findElement(By.tagName("body"));
-            Actions builder = new Actions(driver);
-            builder.moveToElement(element, 0, 0).perform();
-        }
-        driver.findElement(By.name("toFieldInput")).click();
-        driver.findElement(By.name("toFieldInput")).sendKeys("javaoptimist@gmail.com");
-        driver.findElement(By.name("subject")).click();
-//        {
-//            WebElement element = driver.findElement(By.cssSelector("#mceu_7-open > svg"));
-//            Actions builder = new Actions(driver);
-//            builder.moveToElement(element).perform();
-//        }
-//        {
-//            WebElement element = driver.findElement(By.tagName("body"));
-//            Actions builder = new Actions(driver);
-//            builder.moveToElement(element, 0, 0).perform();
-//        }
-//        driver.findElement(By.name("subject")).sendKeys("qwerty33");
-//        driver.switchTo().frame(1);
-//        driver.findElement(By.cssSelector("div")).click();
-//        {
-//            WebElement element = driver.findElement(By.id("tinymce"));
-//            js.executeScript("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<div><span id=\"_mce_caret\" data-mce-bogus=\"true\"><span style=\"font-size: 12pt; line-height: 14pt; font-family: Arial;\" data-mce-style=\"line-height: 14pt; font-family: Arial; font-size: 12pt;\" class=\"customFontStyle\">﻿qwqwqwqwq</span></span><br></div>'}", element);
-//        }
-//        driver.switchTo().defaultContent();
-//        driver.findElement(By.cssSelector(".sendmsg__bottom-controls > .button")).click();
+       EmailPage emailPage=loginPage.loginValidUser(System.getProperty("user"),System.getProperty("password"));
+
+      emailPage.sendEmail(System.getProperty("reciver"),"test_subject33","message 1","");
+
+
     }
 
 }

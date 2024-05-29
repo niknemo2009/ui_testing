@@ -22,11 +22,12 @@ public class LoginPage {
         buttonLogin = driver.findElement(By.xpath("/html/body/div/div/main/div[1]/form/button"));
     }
 
-    public void loginValidUser(String login, String password){
+    public EmailPage loginValidUser(String login, String password) throws InterruptedException {
        inputLogin.clear();
        inputPassword.clear();
         inputLogin.sendKeys(login);
         inputPassword.sendKeys(password);
         buttonLogin.click();
+     return new EmailPage(driver);
     }
 }
