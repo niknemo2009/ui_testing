@@ -16,16 +16,11 @@ public class EmailPage {
 
     public EmailPage(WebDriver driver) {
         this.driver = driver;
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        buttonCreateEmail=driver.findElement(By.xpath("//*[@id=\"content\"]/aside/button"));
+        buttonCreateEmail=driver.findElement(By.cssSelector(".button.primary.compose"));
         buttonCreateEmail.click();
         this.inputReciver = driver.findElement(By.name("toFieldInput"));
-        this.inputSubject =  driver.findElement(By.xpath("//*[@id=\"screens\"]/div/div[2]/section[1]/div[4]/div[2]/input"));
-//        this.bodyMessage = bodyMessage;
+        this.inputSubject =  driver.findElement(By.cssSelector("input.input[name='subject']"));
+       //        this.bodyMessage = bodyMessage;
         this.buttonSend =  driver.findElement(By.xpath("//*[@id='screens']/div/div[1]/div/button"));
         this.buttonFileAttach = driver.findElement(By.xpath("//*[@id=\"screens\"]/div/div[2]/section[2]/div[2]/label/button"));
     }

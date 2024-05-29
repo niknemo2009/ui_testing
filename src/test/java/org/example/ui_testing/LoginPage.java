@@ -19,10 +19,11 @@ public class LoginPage {
         driver.get("https://accounts.ukr.net/login");
         inputLogin =driver.findElement(By.name("login"));
         inputPassword =driver.findElement(By.name("password"));
-        buttonLogin = driver.findElement(By.xpath("/html/body/div/div/main/div[1]/form/button"));
+        buttonLogin =driver.findElement(By.cssSelector(".Ol0-ktls.jY4tHruE._2yaudugp"));
+
     }
 
-    public EmailPage loginValidUser(String login, String password) throws InterruptedException {
+    public EmailPage loginValidUser(String login, String password)  {
        inputLogin.clear();
        inputPassword.clear();
         inputLogin.sendKeys(login);
