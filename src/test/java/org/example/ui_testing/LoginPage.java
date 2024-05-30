@@ -21,12 +21,12 @@ public class LoginPage {
 
     }
 
-    public EmailPage loginValidUser(String login, String password)  {
+    public SendEmailPage loginValidUser(String login, String password)  {
        inputLogin.clear();
        inputPassword.clear();
         inputLogin.sendKeys(login);
         inputPassword.sendKeys(password);
         buttonLogin.click();
-     return new EmailPage(driver);
+     return new SendEmailPage(driver);
     }
 }

@@ -2,14 +2,14 @@ package org.example.ui_testing;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class TotalTest {
     private static final Logger log = LoggerFactory.getLogger(TotalTest.class);
@@ -30,10 +30,12 @@ public class TotalTest {
     }
 
     @org.junit.jupiter.api.Test
-    public void totalFlow() {
-       EmailPage emailPage=loginPage.loginValidUser(System.getProperty("user"),System.getProperty("password"));
-
-      emailPage.sendEmail(System.getProperty("reciver"),"test_subject3377","message 134567","");
+    public void sendValidEmail() {
+       SendEmailPage sendEmailPage =loginPage.loginValidUser(System.getProperty("user"),System.getProperty("password"));
+        String subject="test_subject_"+UUID.randomUUID().toString();
+       Letter letter=new Letter(System.getProperty("reciver"),subject,"message 134567",new ArrayList<String>());
+      sendEmailPage.sendEmail(letter);
+      sendEmailPage.readEmail(letter);
 
 
     }
