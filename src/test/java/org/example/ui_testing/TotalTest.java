@@ -15,6 +15,7 @@ public class TotalTest {
     private static final Logger log = LoggerFactory.getLogger(TotalTest.class);
     static  public WebDriver driver;
     static  public LoginPage   loginPage;
+
     @BeforeAll
     public static void setUpAll() {
      driver=new ChromeDriver();
@@ -32,7 +33,7 @@ public class TotalTest {
     public void totalFlow() {
        EmailPage emailPage=loginPage.loginValidUser(System.getProperty("user"),System.getProperty("password"));
 
-      emailPage.sendEmail(System.getProperty("reciver"),"test_subject3377","message 1","");
+      emailPage.sendEmail(System.getProperty("reciver"),"test_subject3377","message 134567","");
 
 
     }
