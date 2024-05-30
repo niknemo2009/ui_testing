@@ -3,16 +3,14 @@ package org.example.ui_testing;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 
 public class LoginPage {
     private WebDriver driver;
-    public WebElement  inputLogin;
-    public  WebElement  inputPassword;
-    public  WebElement  buttonLogin ;
+    private WebElement  inputLogin;
+    private WebElement  inputPassword;
+    private  WebElement  buttonLogin ;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;

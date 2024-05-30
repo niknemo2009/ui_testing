@@ -7,12 +7,12 @@ import org.openqa.selenium.WebElement;
 
 public class EmailPage {
     private WebDriver driver;
-    public WebElement buttonCreateEmail;
-    public WebElement  inputReciver;
-    public  WebElement  inputSubject;
-    public  WebElement  bodyMessage ;
-    public  WebElement  buttonSend;
-    public  WebElement  buttonFileAttach;
+    private WebElement buttonCreateEmail;
+    private WebElement  inputReciver;
+    private  WebElement  inputSubject;
+    private   WebElement  bodyMessage ;
+    private   WebElement  buttonSend;
+    private   WebElement  buttonFileAttach;
 
     public EmailPage(WebDriver driver) {
         this.driver = driver;
