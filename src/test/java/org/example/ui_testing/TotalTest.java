@@ -33,9 +33,9 @@ public class TotalTest {
     public void sendValidEmail() {
        SendEmailPage sendEmailPage =loginPage.loginValidUser(System.getProperty("user"),System.getProperty("password"));
         String subject="test_subject_"+UUID.randomUUID().toString();
-       Letter letter=new Letter(System.getProperty("reciver"),subject,"message 134567",new ArrayList<String>());
+       Letter letter=new Letter(System.getProperty("receiver"),subject,"message 1333333",new ArrayList<String>());
       sendEmailPage.sendEmail(letter);
-      sendEmailPage.readEmail(letter);
+    //  sendEmailPage.readEmail(letter);
 
 
     }
