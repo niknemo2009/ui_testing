@@ -13,15 +13,17 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class TotalTest {
-    private static final Logger log33 = LoggerFactory.getLogger(TotalTest.class);
+    private static final Logger log= LoggerFactory.getLogger(TotalTest.class);
     static public WebDriver driver;
     static public LoginPage loginPage;
+
 
     @BeforeAll
     public static void setUpAll() {
         driver = new ChromeDriver();
         driver.manage().window().setSize(new Dimension(1200, 718));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.get("https://accounts.ukr.net/login");
         loginPage = new LoginPage(driver);
     }
 
@@ -32,11 +34,17 @@ public class TotalTest {
 
     @org.junit.jupiter.api.Test
     public void sendValidEmail() {
-        SendEmailPage sendEmailPage = loginPage.loginValidUser(System.getProperty("user"), System.getProperty("password"));
-        String subject = "test_subject_" + UUID.randomUUID();
-        Letter letter = new Letter(System.getProperty("receiver"), subject, "message 1333333", new ArrayList<String>());
-        sendEmailPage.sendEmail(letter);
-        //  sendEmailPage.readEmail(letter);
+  //  loginPage.verifyTitle();
+    loginPage.typeLogin(System.getProperty("user"));
+    loginPage.typePassword(System.getProperty("password"));
+    loginPage.login();
+    SendEmailPage sendEmailPage=new SendEmailPage(driver);
+    String subject = "test_subject_" + UUID.randomUUID();
+    Letter validLetter = new Letter(System.getProperty("receiver"), subject, "message 13333332", new ArrayList<String>());
+    //sendEmailPage.verifyTitle(System.getProperty("user")+"@ukr.net");
+    sendEmailPage.sendEmail(validLetter);
+    ReadEmailPage readEmailPage=sendEmailPage.toInbox();
+
 
 
     }

@@ -1,35 +1,48 @@
 package org.example.ui_testing;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class SendEmailPage {
     JavascriptExecutor js;
-    private final WebDriver driver;
-    private final WebElement buttonCreateEmail;
-    private final WebElement inputReciver;
-    private final WebElement inputSubject;
-    private final WebElement buttonSend;
-    private final WebElement buttonFileAttach;
+    private  WebDriver driver;
+    @FindBy(css = ".button.primary.compose")
+    private  WebElement buttonCreateEmail;
+    @FindBy(name = "toFieldInput")
+    private  WebElement inputReceiver;
+    @FindBy(css = "input.input[name='subject']")
+    private  WebElement inputSubject;
+    @FindBy(xpath = "//*[@id='screens']/div/div[1]/div/button")
+    private  WebElement buttonSend;
+    @FindBy(xpath = "//*[@id=\"screens\"]/div/div[2]/section[2]/div[2]/label/button")
+    private  WebElement buttonFileAttach;
+    @FindBy(xpath = "/html/head/title")
+    private WebElement titlePage;
+
+    @FindBy(xpath = "//*[@id=\"0\"]/span[4]")
+    private WebElement buttonInbox;
 
     public SendEmailPage(WebDriver driver) {
         this.driver = driver;
         js = (JavascriptExecutor) driver;
-        buttonCreateEmail = driver.findElement(By.cssSelector(".button.primary.compose"));
-        buttonCreateEmail.click();
-        this.inputReciver = driver.findElement(By.name("toFieldInput"));
-        this.inputSubject = driver.findElement(By.cssSelector("input.input[name='subject']"));
-        //        this.bodyMessage = bodyMessage;
-        this.buttonSend = driver.findElement(By.xpath("//*[@id='screens']/div/div[1]/div/button"));
-        this.buttonFileAttach = driver.findElement(By.xpath("//*[@id=\"screens\"]/div/div[2]/section[2]/div[2]/label/button"));
+        PageFactory.initElements(driver,this);
+    }
+    public void verifyTitle(String sendersEmail){
+        String getTitle=titlePage.getText().trim();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@ "+getTitle);
+        Assertions.assertTrue(getTitle.contains("Вхідні • "+sendersEmail));
+
     }
 
-
     public void sendEmail(Letter letter) {
-        inputReciver.sendKeys(letter.receiver());
+        buttonCreateEmail.click();
+        inputReceiver.sendKeys(letter.receiver());
         inputSubject.sendKeys(letter.subject());
         WebElement iframe = driver.findElement(By.id("mce_0_ifr"));
         driver.switchTo().frame(iframe);
@@ -42,9 +55,11 @@ public class SendEmailPage {
 
     }
 
-    public void checkEmail(Letter letter) {
-
+    public ReadEmailPage toInbox(){
+        buttonInbox.click();
+        return new ReadEmailPage(driver);
     }
+
 }
 //todo Command or Builder for dif variants send(simple,with  attach ...) ????????
 //todo normalisation all selector !!!!!
