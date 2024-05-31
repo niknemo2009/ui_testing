@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class TotalTest {
-    private static final Logger log = LoggerFactory.getLogger(TotalTest.class);
+    private static final Logger log33 = LoggerFactory.getLogger(TotalTest.class);
     static public WebDriver driver;
     static public LoginPage loginPage;
 
