@@ -11,17 +11,17 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SendEmailPage {
     JavascriptExecutor js;
-    private  WebDriver driver;
+    private final WebDriver driver;
     @FindBy(css = ".button.primary.compose")
-    private  WebElement buttonCreateEmail;
+    private WebElement buttonCreateEmail;
     @FindBy(name = "toFieldInput")
-    private  WebElement inputReceiver;
+    private WebElement inputReceiver;
     @FindBy(css = "input.input[name='subject']")
-    private  WebElement inputSubject;
+    private WebElement inputSubject;
     @FindBy(xpath = "//*[@id='screens']/div/div[1]/div/button")
-    private  WebElement buttonSend;
+    private WebElement buttonSend;
     @FindBy(xpath = "//*[@id=\"screens\"]/div/div[2]/section[2]/div[2]/label/button")
-    private  WebElement buttonFileAttach;
+    private WebElement buttonFileAttach;
     @FindBy(xpath = "/html/head/title")
     private WebElement titlePage;
 
@@ -31,12 +31,13 @@ public class SendEmailPage {
     public SendEmailPage(WebDriver driver) {
         this.driver = driver;
         js = (JavascriptExecutor) driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
-    public void verifyTitle(String sendersEmail){
-        String getTitle=titlePage.getText().trim();
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@ "+getTitle);
-        Assertions.assertTrue(getTitle.contains("Вхідні • "+sendersEmail));
+
+    public void verifyTitle(String sendersEmail) {
+        String getTitle = titlePage.getText().trim();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@ " + getTitle);
+        Assertions.assertTrue(getTitle.contains("Вхідні • " + sendersEmail));
 
     }
 
@@ -55,9 +56,9 @@ public class SendEmailPage {
 
     }
 
-    public ReadEmailPage toInbox(){
+    public InboxTableLettersPage toInbox() {
         buttonInbox.click();
-        return new ReadEmailPage(driver);
+        return new InboxTableLettersPage(driver);
     }
 
 }
