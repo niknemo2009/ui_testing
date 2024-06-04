@@ -21,7 +21,6 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-//        driver.get("https://accounts.ukr.net/login");
         PageFactory.initElements(driver, this);
 
     }

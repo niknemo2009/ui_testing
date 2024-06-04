@@ -6,16 +6,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.UUID;
 
 public class TotalTest {
-    private static final Logger log = LoggerFactory.getLogger(TotalTest.class);
-    static public WebDriver driver;
-    static public LoginPage loginPage;
+    static private WebDriver driver;
+    static private LoginPage loginPage;
+    private SendEmailPage sendEmailPage;
+    private InboxTableLettersPage inboxTableLettersPage;
 
 
     @BeforeAll
@@ -29,22 +28,24 @@ public class TotalTest {
 
     @AfterAll
     static void afterAll() {
-        //  driver.quit();
+        driver.close();
+        driver.quit();
     }
 
     @org.junit.jupiter.api.Test
-    public void sendValidEmail() {
+    public void sendValidEmail() throws InterruptedException {
         //  loginPage.verifyTitle();
         loginPage.typeLogin(System.getProperty("user"));
         loginPage.typePassword(System.getProperty("password"));
         loginPage.login();
-        SendEmailPage sendEmailPage = new SendEmailPage(driver);
+        sendEmailPage = new SendEmailPage(driver);
+        // sendEmailPage.verifyTitle(System.getProperty("receiver"));
         String subject = "test_subject_" + UUID.randomUUID();
         Letter validLetter = new Letter(System.getProperty("receiver"), subject, "message 133333327777456");
-        //sendEmailPage.verifyTitle(System.getProperty("user")+"@ukr.net");
         sendEmailPage.sendEmail(validLetter);
-        InboxTableLettersPage inboxTableLettersPage = sendEmailPage.toInbox();
-
+        inboxTableLettersPage = sendEmailPage.toInbox();
+        Thread.sleep(5000);
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         Assertions.assertTrue(inboxTableLettersPage.findLetterInInbox(validLetter));
 
 

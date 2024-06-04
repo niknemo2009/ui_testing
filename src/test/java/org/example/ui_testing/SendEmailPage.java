@@ -2,16 +2,13 @@ package org.example.ui_testing;
 
 
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class SendEmailPage {
-    JavascriptExecutor js;
     private final WebDriver driver;
+    JavascriptExecutor js;
     @FindBy(css = ".button.primary.compose")
     private WebElement buttonCreateEmail;
     @FindBy(name = "toFieldInput")
@@ -57,10 +54,18 @@ public class SendEmailPage {
     }
 
     public InboxTableLettersPage toInbox() {
-        buttonInbox.click();
+        try {
+            buttonInbox.click();
+        } catch (StaleElementReferenceException e) {
+            buttonInbox = driver.findElement(By.xpath("//*[@id=\"0\"]/span[4]"));
+            buttonInbox.click();
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+
         return new InboxTableLettersPage(driver);
     }
 
 }
 //todo Command or Builder for dif variants send(simple,with  attach ...) ????????
 //todo normalisation all selector !!!!!
+//todo inbox click  every 4-5 time problem StaleElementReferenceException: stale element reference: stale element not found in the current frame +
