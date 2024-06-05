@@ -1,5 +1,6 @@
 package other.alertBox;
 
+import TestUtil.ErrorInfo;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +14,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.time.Duration;
 
-public class AlertTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class AlertTest implements ErrorInfo {
+    public static final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
     static private WebDriver driver;
     static private AlertPage alertPage;
     private TestInfo testInfo;
@@ -22,7 +26,7 @@ public class AlertTest {
     @BeforeAll
     public static void setUpAll() {
         driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1200, 718));
+        driver.manage().window().setSize(new Dimension(1200, 1200));
         driver.get("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
         alertPage = new AlertPage(driver);
     }
@@ -39,47 +43,57 @@ public class AlertTest {
     }
 
     @org.junit.jupiter.api.Test
-    public void testSimpleAlert() {
+    @DisplayName("1.1 I should check text in simple Alert ")
+    public void testSimpleAlert() throws Exception {
         alertPage.simpleAlert();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-        String actualResult = alert.getText();
-        try {
-            Assertions.assertEquals("I am an alert box!", actualResult, "Problem with simple alert !");
-        } finally {
-            alert.accept();
-        }
-
-
-    }
-
-    @org.junit.jupiter.api.Test
-    public void testConfirmAlertCancel() {
-        alertPage.confirmAlert();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        Alert alert = driver.switchTo().alert();
-        try {
-            Assertions.assertEquals("Press a button!", alert.getText(), "Problem with text in Confirm Alert!");
-        } finally {
-            alert.dismiss();
-            Assertions.assertEquals(alertPage.getConfirmText(), "You pressed Cancel!", "Problem with Cancel confirm message !");
-        }
-
-
-    }
-
-    @org.junit.jupiter.api.Test
-    public void testConfirmAlertOk() {
-        alertPage.confirmAlert();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        Alert alert = driver.switchTo().alert();
-        Assertions.assertEquals("Press a button!", alert.getText(), "Problem with text in Confirm Alert!");
+        String textInAlert = alert.getText();
         alert.accept();
-        Assertions.assertEquals(alertPage.getConfirmText(), "You pressed OK!", "Problem with OK confirm message !");
+        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
+         assertEquals("I am an alert box!", textInAlert, "Problem with text in simple alert !");
+
+    }
+
+
+
+    @org.junit.jupiter.api.Test
+    @DisplayName("1.2 I should check the Confirm Alert (Cancel) ")
+    public void testConfirmAlertCancel() throws Exception {
+        alertPage.confirmAlert();
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        String textInAlert = alert.getText();
+        alert.dismiss();
+        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
+        assertAll("Problem with Confirm Alert (Cancel)!",
+                () ->assertEquals("Press a button!", textInAlert, "Problem with text in Confirm Alert!") ,
+                () ->assertEquals(alertPage.getConfirmText(), "You pressed Cancel!", "Problem with Cancel confirm message on page!")
+        );
+
+        }
+
+
+    @org.junit.jupiter.api.Test
+    @DisplayName("1.3 I should check the Confirm Alert (OK) ")
+    public void testConfirmAlertOk() throws Exception {
+        alertPage.confirmAlert();
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        String textInAlert = alert.getText();
+        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
+        alert.accept();
+            assertAll("Problem with Confirm Alert (OK)!",
+                    () -> assertEquals("Press a button!", textInAlert, "Problem with text in Confirm Alert!"),
+                    () -> assertEquals(alertPage.getConfirmText(), "You pressed OK!66", "Problem with OK confirm message !")
+            );
 
     }
 
     @org.junit.jupiter.api.Test
+    @DisplayName("1.4 I should check the AllertPrompt with value.length=380")
     public void testPromptAlert() {
         alertPage.promptAlert();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -90,10 +104,8 @@ public class AlertTest {
         alert.sendKeys(bigStr);
         alert.accept();
         Assertions.assertEquals(alertPage.getPromptText(), "You have entered '%s' !".formatted(bigStr), "Problem with prompt message !");
-
     }
-
-    @ParameterizedTest(name = "AllertPrompt with value {0} .")
+    @ParameterizedTest(name = "1.5 I should check the AllertPrompt with value {0} .")
     @ValueSource(strings = {"Selenium", "уукук кекеке Qwewe 1345 23{}|", "____ ____ 23@#"})
     public void testPromptAlertParam(String parametr) throws Exception {
         alertPage.promptAlert();
@@ -101,18 +113,11 @@ public class AlertTest {
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.sendKeys(parametr);
         alert.accept();
-        try {
-            Assertions.assertEquals(alertPage.getPromptText(), "You have entered '%s' !33".formatted(parametr), "Problem with prompt message !");
-        } catch (Throwable e) {
-            makeScreenshot(testInfo.getDisplayName());
-        }
+        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
+        assertEquals(alertPage.getPromptText(), "You have entered '%s' !".formatted(parametr), "Problem with prompt message !");
+
     }
 
-    public void makeScreenshot(String nameTest) throws Exception {
-        TakesScreenshot screenshot = (TakesScreenshot) driver;
-        File source = screenshot.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(source, new File("./Screenshots/%s.png".formatted(nameTest)));
-    }
 
     String repeat(String source, int countLetter) {
         StringBuilder sb = new StringBuilder();
