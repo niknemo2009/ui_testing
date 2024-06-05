@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class AlertPage {
     private final WebDriver driver;
-    @FindBy(xpath= "//*[@id=\"__next\"]/section[3]/div/div/div/div[1]/p/button")
+    @FindBy(xpath = "//*[@id=\"__next\"]/section[3]/div/div/div/div[1]/p/button")
     private WebElement buttonSimpleAlert;
     @FindBy(xpath = "//*[@id=\"__next\"]/section[3]/div/div/div/div[2]/div/p[1]/button")
     private WebElement buttonConfirmAlert;
@@ -18,29 +18,30 @@ public class AlertPage {
 
     @FindBy(id = "prompt-demo")
     private WebElement textPrompt;
+
     public AlertPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
 
     }
 
-    public void simpleAlert(){
+    public void simpleAlert() {
         buttonSimpleAlert.click();
     }
 
-    public void confirmAlert(){
+    public void confirmAlert() {
         buttonConfirmAlert.click();
     }
 
-    public void promptAlert(){
+    public void promptAlert() {
         buttonPrompt.click();
     }
 
-    String getConfirmText(){
+    String getConfirmText() {
         return textConfirm.getText();
     }
 
-    String getPromptText(){
+    String getPromptText() {
         return textPrompt.getText();
     }
 }
