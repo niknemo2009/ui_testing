@@ -99,8 +99,6 @@ public class AlertTest implements ErrorInfo {
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         String bigStr = repeat("qwe", 380);
-        System.out.println(bigStr);
-        System.out.println(bigStr.length());
         alert.sendKeys(bigStr);
         alert.accept();
         Assertions.assertEquals(alertPage.getPromptText(), "You have entered '%s' !".formatted(bigStr), "Problem with prompt message !");

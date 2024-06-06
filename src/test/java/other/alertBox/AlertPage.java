@@ -1,19 +1,19 @@
 package other.alertBox;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.locators.RelativeLocator;
+
+import java.util.List;
 
 public class AlertPage {
     private final WebDriver driver;
-    @FindBy(xpath = "//*[@id=\"__next\"]/section[3]/div/div/div/div[1]/p/button")
-    private WebElement buttonSimpleAlert;
-    @FindBy(xpath = "//*[@id=\"__next\"]/section[3]/div/div/div/div[2]/div/p[1]/button")
-    private WebElement buttonConfirmAlert;
-    @FindBy(xpath = "//*[@id=\"__next\"]/section[3]/div/div/div/div[3]/p[1]/button")
-    private WebElement buttonPrompt;
-    @FindBy(css = "#confirm-demo")
+    @FindBy(css = "div.mt-30.rounded button")
+    List<WebElement> buttons;
+      @FindBy(css = "#confirm-demo")
     private WebElement textConfirm;
 
     @FindBy(id = "prompt-demo")
@@ -26,15 +26,15 @@ public class AlertPage {
     }
 
     public void simpleAlert() {
-        buttonSimpleAlert.click();
+       buttons.get(0).click();
     }
 
     public void confirmAlert() {
-        buttonConfirmAlert.click();
+        buttons.get(1).click();
     }
 
     public void promptAlert() {
-        buttonPrompt.click();
+        buttons.get(2).click();
     }
 
     String getConfirmText() {
