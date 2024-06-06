@@ -76,18 +76,18 @@ public class AlertTest implements ErrorInfo {
 
 
     @org.junit.jupiter.api.Test
-    @DisplayName("1.3 I should check the Confirm Alert (OK) ")
+    @DisplayName("1.3 I should check the Confirm Alert (OK)")
     public void testConfirmAlertOk() throws Exception {
         alertPage.confirmAlert();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.alertIsPresent());
         Alert alert = driver.switchTo().alert();
         String textInAlert = alert.getText();
-        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
         alert.accept();
+       makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
             assertAll("Problem with Confirm Alert (OK)!",
                     () -> assertEquals("Press a button!", textInAlert, "Problem with text in Confirm Alert!"),
-                    () -> assertEquals(alertPage.getConfirmText(), "You pressed OK!66", "Problem with OK confirm message !")
+                    () -> assertEquals(alertPage.getConfirmText(), "You pressed OK!", "Problem with OK confirm message !")
             );
 
     }
