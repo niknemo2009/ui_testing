@@ -13,8 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CheckBoxTest implements ErrorInfo {
     public static final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
@@ -50,8 +49,7 @@ public class CheckBoxTest implements ErrorInfo {
         String text=checkBoxPage.textSingle.getText();
         checkBoxPage.singleCheckBox.click();
         boolean isDisplayed2=checkBoxPage.textSingle.isDisplayed();
-        System.out.println(checkBoxPage.textSingle.getAttribute("style")+" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
+       makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
         assertAll("Problem with SingleCheckBox!",
                 () ->assertEquals(true, isDisplayed1, "Problem with visible textSingle!") ,
                 () ->assertEquals(false, isDisplayed2, "Problem with invisible textSingle!") ,
@@ -59,23 +57,62 @@ public class CheckBoxTest implements ErrorInfo {
         );
     }
 
+    @Test
+    @DisplayName("2.2 I should check Disabled section")
+    public void testDisableCheckBox() throws Exception {
+        checkBoxPage.getDisabledCheckBox1().click();
+        boolean state1=checkBoxPage.getDisabledCheckBox1().isSelected();
+        checkBoxPage.getDisabledCheckBox1().click();
+        boolean state11=checkBoxPage.getDisabledCheckBox1().isSelected();
+        checkBoxPage.getDisabledCheckBox2().click();
+        boolean state2=checkBoxPage.getDisabledCheckBox2().isSelected();
+        checkBoxPage.getDisabledCheckBox2().click();
+        boolean state21=checkBoxPage.getDisabledCheckBox2().isSelected();
+        boolean state3=checkBoxPage.getDisabledCheckBox3().isEnabled();
+        boolean state4=checkBoxPage.getDisabledCheckBox4().isEnabled();
+        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
+        assertAll("Problem with DisableCheckBox!",
+                () ->assertTrue(state1, "Problem with state1 !") ,
+                () ->assertTrue(!state11, "Problem with state11 !") ,
+                () ->assertTrue(state2, "Problem with state2!") ,
+                () ->assertTrue(!state21, "Problem with state21!") ,
+                () ->assertTrue(!state3, "Problem with state3!") ,
+                () ->assertTrue(!state4, "Problem with state4!")
 
+        );
+    }
 
     @Test
-    @DisplayName("1.2 I should check the Confirm Alert (Cancel) ")
-    public void testConfirmAlertCancel() throws Exception {
-        //alertPage.confirmAlert();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = driver.switchTo().alert();
-        String textInAlert = alert.getText();
-        alert.dismiss();
+    @DisplayName("2.3 I should check multi section ")
+    public void testMultiCheckBox() throws Exception {
+        checkBoxPage.getMultiCheckBox1().click();
+        boolean state1=checkBoxPage.getMultiCheckBox1().isSelected();
+        checkBoxPage.getMultiCheckBox1().click();
+        boolean state11=checkBoxPage.getMultiCheckBox1().isSelected();
+        checkBoxPage.getMultiCheckBox2().click();
+        boolean state2=checkBoxPage.getMultiCheckBox2().isSelected();
+        checkBoxPage.getMultiCheckBox2().click();
+        boolean state21=checkBoxPage.getMultiCheckBox2().isSelected();
+        checkBoxPage.getMultiCheckBox3().click();
+        boolean state3=checkBoxPage.getMultiCheckBox3().isSelected();
+        checkBoxPage.getMultiCheckBox3().click();
+        boolean state31=checkBoxPage.getMultiCheckBox3().isSelected();
+        checkBoxPage.getMultiCheckBox4().click();
+        boolean state4=checkBoxPage.getMultiCheckBox4().isSelected();
+        checkBoxPage.getMultiCheckBox4().click();
+        boolean state41=checkBoxPage.getMultiCheckBox4().isSelected();
         makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
-//        assertAll("Problem with Confirm Alert (Cancel)!",
-//                () ->assertEquals("Press a button!", textInAlert, "Problem with text in Confirm Alert!") ,
-//               () ->assertEquals(alertPage.getConfirmText(), "You pressed Cancel!", "Problem with Cancel confirm message on page!")
-//        );
+        assertAll("Problem with MultiCheckBox!",
+                () ->assertTrue(state1, "Problem with state1 !") ,
+                () ->assertTrue(!state11, "Problem with state11 !") ,
+                () ->assertTrue(state2, "Problem with state2!") ,
+                () ->assertTrue(!state21, "Problem with state21!") ,
+                () ->assertTrue(state3, "Problem with state3!") ,
+                () ->assertTrue(!state31, "Problem with state31 !") ,
+                () ->assertTrue(state4, "Problem with state4!"),
+                () ->assertTrue(!state41, "Problem with state41 !")
 
+        );
         }
 
 

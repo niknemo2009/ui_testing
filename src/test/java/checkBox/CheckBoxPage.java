@@ -10,29 +10,46 @@ import java.util.List;
 public class CheckBoxPage {
     private final WebDriver driver;
     @FindBy(css = "#isAgeSelected")
-    WebElement singleCheckBox;
+     WebElement singleCheckBox;
     @FindBy(css = "#txtAge")
-    public WebElement textSingle;
+     WebElement textSingle;
 
-    @FindBy(xpath="//*[@id=\"__next\"]/div/section[2]/div/div/div/div[2]/div[2]/div[1]/input")
-    private WebElement disableCheckBox1;
+    @FindBy(css="div.pb-10  input")
+   private  List<WebElement> disableCheckBoxes;
 
-    @FindBy(xpath="//*[@id=\"__next\"]/div/section[2]/div/div/div/div[2]/div[2]/div[2]/input")
-    private WebElement disableCheckBox2;
-    @FindBy(xpath="//*[@id=\"__next\"]/div/section[2]/div/div/div/div[2]/div[2]/div[3]/input")
-    private WebElement disableCheckBox3;
-    @FindBy(xpath="//*[@id=\"__next\"]/div/section[2]/div/div/div/div[2]/div[2]/div[4]/input")
-    private WebElement disableCheckBox4;
-
+    @FindBy(css = ".cb-element.mr-10")
+    private List<WebElement> multiCheckBoxes;
+    @FindBy(css = "div.w-full.text-center.mt-40 input")
+    WebElement buttonMulti;
     public CheckBoxPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
 
     }
 
-    public void singleCheckBox() {
-       singleCheckBox.click();
+  public   WebElement getDisabledCheckBox1(){
+        return disableCheckBoxes.subList(1,5).get(0);
     }
-
+    public   WebElement getDisabledCheckBox2(){
+        return disableCheckBoxes.subList(1,5).get(1);
+    }
+    public    WebElement getDisabledCheckBox3(){
+        return disableCheckBoxes.subList(1,5).get(2);
+    }
+    public   WebElement getDisabledCheckBox4(){
+        return disableCheckBoxes.subList(1,5).get(3);
+    }
+    public WebElement getMultiCheckBox1() {
+        return multiCheckBoxes.subList(0,4).get(0);
+    }
+    public WebElement getMultiCheckBox2() {
+        return multiCheckBoxes.subList(0,4).get(1);
+    }
+    public WebElement getMultiCheckBox3() {
+        return multiCheckBoxes.subList(0,4).get(2);
+    }
+    public WebElement getMultiCheckBox4() {
+        return multiCheckBoxes.subList(0,4).get(3);
+    }
 
 }
