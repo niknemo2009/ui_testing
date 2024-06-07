@@ -1,4 +1,4 @@
-package other.alertBox;
+package other.Page;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,11 +35,11 @@ public class AlertPage {
         buttons.get(2).click();
     }
 
-    String getConfirmText() {
+   public  String getConfirmText() {
         return textConfirm.getText();
     }
 
-    String getPromptText() {
+    public String getPromptText() {
         return textPrompt.getText();
     }
 }

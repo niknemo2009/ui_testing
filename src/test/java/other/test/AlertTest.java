@@ -1,16 +1,17 @@
-package other.alertBox;
+package other.test;
 
 import TestUtil.ErrorInfo;
+
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import other.Page.AlertPage;
 
 import java.time.Duration;
 
@@ -27,7 +28,7 @@ public class AlertTest implements ErrorInfo {
     @BeforeAll
     public static void setUpAll() {
         driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1200, 1200));
+        driver.manage().window().maximize();
         driver.get("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
         alertPage = new AlertPage(driver);
     }

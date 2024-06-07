@@ -1,10 +1,10 @@
-package other.checkBox;
+package other.test;
 
 import TestUtil.ErrorInfo;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import other.Page.CheckBoxPage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,15 +18,15 @@ public class CheckBoxTest implements ErrorInfo {
     @BeforeAll
     public static void setUpAll() {
         driver = new ChromeDriver();
-        driver.manage().window().setSize(new Dimension(1200, 1200));
+        driver.manage().window().maximize();
         driver.get("https://www.lambdatest.com/selenium-playground/checkbox-demo");
         checkBoxPage = new CheckBoxPage(driver);
     }
 
     @AfterAll
     static void afterAll() {
-//        driver.close();
-//        driver.quit();
+        driver.close();
+        driver.quit();
     }
 
     @BeforeEach
