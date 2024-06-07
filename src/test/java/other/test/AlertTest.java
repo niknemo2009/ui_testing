@@ -53,7 +53,7 @@ public class AlertTest implements ErrorInfo {
         String textInAlert = alert.getText();
         alert.accept();
         makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()), driver);
-        assertEquals("I am an alert box!", textInAlert, "Problem with text in simple alert!");
+        assertEquals("I am an alert box!", textInAlert, "Problem with text in simple alert !");
 
     }
 
