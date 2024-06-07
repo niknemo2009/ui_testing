@@ -42,4 +42,4 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: echo "Hellowewewe 33 ${{ inputs.name }}"
+      run: ls
