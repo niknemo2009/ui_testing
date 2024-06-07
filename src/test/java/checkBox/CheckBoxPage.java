@@ -3,6 +3,7 @@ package checkBox;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class CheckBoxPage {
     @FindBy(css = "#txtAge")
      WebElement textSingle;
 
+//    @FindBys({@FindBy(tagName = "div"), @FindBy(css= ".pb-10  input")})
     @FindBy(css="div.pb-10  input")
    private  List<WebElement> disableCheckBoxes;
 

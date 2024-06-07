@@ -115,6 +115,35 @@ public class CheckBoxTest implements ErrorInfo {
         );
         }
 
+    @Test
+    @DisplayName("2.4 I should check button ")
+    public void testButton() throws Exception {
+        String textBefore=checkBoxPage.buttonMulti.getAttribute("value");
+        checkBoxPage.buttonMulti.click();
+         boolean state1=checkBoxPage.getMultiCheckBox1().isSelected();
+         boolean state2=checkBoxPage.getMultiCheckBox2().isSelected();
+         boolean state3=checkBoxPage.getMultiCheckBox3().isSelected();
+         boolean state4=checkBoxPage.getMultiCheckBox4().isSelected();
+        String textAfter=checkBoxPage.buttonMulti.getAttribute("value");
+        checkBoxPage.buttonMulti.click();
+        boolean state11=checkBoxPage.getMultiCheckBox1().isSelected();
+        boolean state21=checkBoxPage.getMultiCheckBox2().isSelected();
+        boolean state31=checkBoxPage.getMultiCheckBox3().isSelected();
+        boolean state41=checkBoxPage.getMultiCheckBox4().isSelected();
+        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()),driver);
+        assertAll("Problem with Button!",
+                () ->assertTrue(state1, "Problem with state1 !") ,
+                () ->assertTrue(!state11, "Problem with state11 !") ,
+                () ->assertTrue(state2, "Problem with state2!") ,
+                () ->assertTrue(!state21, "Problem with state21!") ,
+                () ->assertTrue(state3, "Problem with state3!") ,
+                () ->assertTrue(!state31, "Problem with state31 !") ,
+                () ->assertTrue(state4, "Problem with state4!"),
+                () ->assertTrue(!state41, "Problem with state41 !"),
+                () ->assertEquals("Check All", textBefore,"Problem with text textBefore !"),
+                () ->assertEquals("Uncheck All", textAfter,"Problem with text textAfter !")
 
+        );
+    }
 
 }
