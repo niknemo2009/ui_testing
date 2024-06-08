@@ -21,8 +21,9 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ inputs.name }}"
-        echo "Hello $(QWE+1) "
-
+           echo "Hello ${QWE+1} "
+           echo "Hello $GITHUB_REPOSITORY_OWNER " 
+   
    
 
   grqwerty:
