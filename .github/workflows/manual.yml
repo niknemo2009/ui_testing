@@ -14,17 +14,16 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-     QWE: '333333333' 
+     QWE: 333333333 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ inputs.name }}"
-        echo "Hello $QWE "
+        echo "Hello $(QWE+1) "
 
-    - name: Send greeting33
-      run: echo "Hello ${{ inputs.name }}"
+   
 
   grqwerty:
     # The type of runner that the job will run on
