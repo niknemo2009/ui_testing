@@ -8,7 +8,7 @@ on:
 
 jobs:
   # This workflow contains a single job called "greet"
-  runs-on: ubuntu-latest
+  
 
   greet:
     # The type of runner that the job will run on
