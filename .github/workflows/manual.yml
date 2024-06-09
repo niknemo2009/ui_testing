@@ -31,6 +31,16 @@ jobs:
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
+    steps:
+          # Downloads a copy of the code in your repository before running CI tests
+          - name: Check out repository code
+            uses: actions/checkout@v4
+
+          # Performs a clean installation of all dependencies in the `package.json` file
+          # For more information, see https://docs.npmjs.com/cli/ci.html
+          - name: Install dependencies
+            run: npm
+
   greet:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
