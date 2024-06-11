@@ -1,18 +1,21 @@
 package other.test;
 
 import TestUtil.ErrorInfo;
-
+//import org.openqa.selenium.grid.Main;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import other.Page.AlertPage;
 
+import java.net.URL;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -43,7 +46,25 @@ public class AlertTest implements ErrorInfo {
     void init(TestInfo testInfo) {
         this.testInfo = testInfo;
     }
+/*
+ ChromeOptions options = new ChromeOptions();
+    driver = new RemoteWebDriver(gridUrl, options);
+ */
 
+//    @org.junit.jupiter.api.Test
+//    @DisplayName("1.0  ")
+//    public void testSimpleAlert33() throws Exception {
+//        ChromeOptions options = new ChromeOptions();
+//        WebDriver  driverR = new RemoteWebDriver(new URL("http://127.0.0.1:4444" ), options);
+//        alertPage.simpleAlert();
+//        Wait<WebDriver> wait = new WebDriverWait(driverR, Duration.ofSeconds(5));
+//        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+//        String textInAlert = alert.getText();
+//        alert.accept();
+//        makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()), driverR);
+//        assertEquals("I am an alert box!", textInAlert, "Problem with text in simple alert !");
+//
+//    }
     @org.junit.jupiter.api.Test
     @DisplayName("1.1 I should check text in simple Alert ")
     public void testSimpleAlert() throws Exception {
@@ -126,4 +147,26 @@ public class AlertTest implements ErrorInfo {
         }
         return sb.substring(0, countLetter);
     }
+
+//    protected URL startStandaloneGrid() {
+//        int port = 4444;
+//        try {
+//            Main.main(
+//                    new String[]{
+//                            "standalone",
+//                            "--port",
+//                            String.valueOf(port),
+//                            "--selenium-manager",
+//                            "true",
+//                            "--enable-managed-downloads",
+//                            "true",
+//                            "--log-level",
+//                            "WARNING"
+//                    });
+//            return new URL("http://localhost:" + port);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
+
