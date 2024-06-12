@@ -1,10 +1,10 @@
-package other.test;
+package lambdatest_com;
 
-import TestUtil.ErrorInfo;
+import util_tests.ErrorInfo;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import other.Page.CheckBoxPage;
+import lambdatest_com.page_object.CheckBoxPage;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,4 @@
-package other.Page;
+package lambdatest_com.page_object;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

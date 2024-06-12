@@ -1,10 +1,11 @@
-package org.example.ui_testing;
+package ukr_net.page_object;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ukr_net.pojo.Letter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,6 @@ public class InboxTableLettersPage {
 
     public boolean findLetterInInbox(Letter letter) {
         var list = getAllOnFirstPage();
-        System.out.println(list);
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println(letter);
         return list.contains(letter);
     }
 

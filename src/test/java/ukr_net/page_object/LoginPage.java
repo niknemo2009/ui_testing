@@ -1,4 +1,4 @@
-package org.example.ui_testing;
+package ukr_net.page_object;
 
 
 import org.junit.jupiter.api.Assertions;

@@ -1,10 +1,11 @@
-package org.example.ui_testing;
+package ukr_net.page_object;
 
 
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import ukr_net.pojo.Letter;
 
 import java.util.List;
 
@@ -35,7 +36,6 @@ public class SendEmailPage {
 
     public void verifyTitle(String sendersEmail) {
         String getTitle = titlePage.getText().trim();
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@ " + getTitle);
         Assertions.assertTrue(getTitle.contains("Вхідні • " + sendersEmail));
 
     }
@@ -68,6 +68,4 @@ public class SendEmailPage {
     }
 
 }
-//todo Command or Builder for dif variants send(simple,with  attach ...) ????????
-//todo normalisation all selector !!!!!
-//todo inbox click  every 4-5 time problem StaleElementReferenceException: stale element reference: stale element not found in the current frame +
+//todo Command or Builder for dif variants send(simple,with  attach ...) ???
