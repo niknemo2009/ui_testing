@@ -6,6 +6,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class SendEmailPage {
     private final WebDriver driver;
     JavascriptExecutor js;
@@ -15,14 +17,14 @@ public class SendEmailPage {
     private WebElement inputReceiver;
     @FindBy(css = "input.input[name='subject']")
     private WebElement inputSubject;
-    @FindBy(xpath = "//*[@id='screens']/div/div[1]/div/button")
-    private WebElement buttonSend;
-    @FindBy(xpath = "//*[@id=\"screens\"]/div/div[2]/section[2]/div[2]/label/button")
+
+    @FindBy(xpath = "//button[text()='Надіслати']")
+    private List<WebElement> buttonsSend;
+    @FindBy(xpath = "//button[text()='Файл']")
     private WebElement buttonFileAttach;
     @FindBy(xpath = "/html/head/title")
     private WebElement titlePage;
-
-    @FindBy(xpath = "//*[@id=\"0\"]/span[4]")
+    @FindBy(xpath = "//span[text()='Вхідні']")
     private WebElement buttonInbox;
 
     public SendEmailPage(WebDriver driver) {
@@ -49,7 +51,7 @@ public class SendEmailPage {
                     """.formatted(letter.message());
         js.executeScript("document.getElementById('tinymce').innerHTML=" + newBody);
         driver.switchTo().defaultContent();
-        buttonSend.click();
+        buttonsSend.get(0).click();
 
     }
 
@@ -57,9 +59,9 @@ public class SendEmailPage {
         try {
             buttonInbox.click();
         } catch (StaleElementReferenceException e) {
-            buttonInbox = driver.findElement(By.xpath("//*[@id=\"0\"]/span[4]"));
+            buttonInbox = driver.findElement(By.xpath("//span[text()='Вхідні']"));
             buttonInbox.click();
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         }
 
         return new InboxTableLettersPage(driver);
