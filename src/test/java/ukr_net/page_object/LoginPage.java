@@ -25,34 +25,24 @@ public class LoginPage {
 
     }
 
-    public void verifyTitle() {
-        String getTitle = titlePage.getText().trim();
-        Assertions.assertEquals("Пошта @ ukr.net - українська електронна пошта • Створи емейл", getTitle);
-
-    }
-
     public SendEmailPage loginValidUser(String login, String password) {
-        inputLogin.clear();
-        inputPassword.clear();
-        inputLogin.sendKeys(login);
-        inputPassword.sendKeys(password);
+        typeLogin(login);
+        typePassword(password);
         buttonLogin.click();
         return new SendEmailPage(driver);
     }
 
-    public void typeLogin(String login) {
+    private void typeLogin(String login) {
         inputLogin.clear();
         inputLogin.sendKeys(login);
     }
 
-    public void typePassword(String password) {
+    private void typePassword(String password) {
         inputPassword.clear();
         inputPassword.sendKeys(password);
     }
 
-    public void login() {
-        buttonLogin.click();
-    }
+
 
 
 }

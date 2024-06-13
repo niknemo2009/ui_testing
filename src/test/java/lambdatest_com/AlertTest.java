@@ -19,7 +19,7 @@ public class AlertTest implements ErrorInfo {
     public static final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
     static private WebDriver driver;
     static private AlertPage alertPage;
-    private TestInfo testInfo;
+      private TestInfo testInfo;
 
 
     @BeforeAll

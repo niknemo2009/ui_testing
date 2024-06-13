@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SendEmailPage {
     private final WebDriver driver;
-    JavascriptExecutor js;
+    private JavascriptExecutor js;
     @FindBy(css = ".button.primary.compose")
     private WebElement buttonCreateEmail;
     @FindBy(name = "toFieldInput")
@@ -23,9 +23,7 @@ public class SendEmailPage {
     private List<WebElement> buttonsSend;
     @FindBy(xpath = "//button[text()='Файл']")
     private WebElement buttonFileAttach;
-    @FindBy(xpath = "/html/head/title")
-    private WebElement titlePage;
-    @FindBy(xpath = "//span[text()='Вхідні']")
+     @FindBy(xpath = "//span[text()='Вхідні']")
     private WebElement buttonInbox;
 
     public SendEmailPage(WebDriver driver) {
@@ -34,11 +32,6 @@ public class SendEmailPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void verifyTitle(String sendersEmail) {
-        String getTitle = titlePage.getText().trim();
-        Assertions.assertTrue(getTitle.contains("Вхідні • " + sendersEmail));
-
-    }
 
     public void sendEmail(Letter letter) {
         buttonCreateEmail.click();
