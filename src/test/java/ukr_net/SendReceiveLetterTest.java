@@ -10,7 +10,6 @@ import ukr_net.page_object.InboxTableLettersPage;
 import ukr_net.page_object.LoginPage;
 import ukr_net.page_object.SendEmailPage;
 import ukr_net.pojo.Letter;
-
 import java.time.Duration;
 import java.util.UUID;
 

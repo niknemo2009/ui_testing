@@ -1,46 +1,31 @@
 package lambdatest_com;
 
+import base.BaseTest;
 import lambdatest_com.page_object.AlertPage;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import util_tests.ErrorInfo;
+
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AlertTest implements ErrorInfo {
-    public static final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
-    static private WebDriver driver;
-    static private AlertPage alertPage;
-    private TestInfo testInfo;
-
-
-    @BeforeAll
-    public static void setUpAll() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
-        alertPage = new AlertPage(driver);
-    }
-
-    @AfterAll
-    static void afterAll() {
-        driver.close();
-        driver.quit();
-    }
+public class AlertTest extends BaseTest {
+    public  final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
+    private AlertPage alertPage;
 
     @BeforeEach
-    void init(TestInfo testInfo) {
-        this.testInfo = testInfo;
+  public  void init(TestInfo testInfo) {
+        super.init(testInfo);
+        driver.get("https://www.lambdatest.com/selenium-playground/javascript-alert-box-demo");
+       alertPage = new AlertPage(driver);
     }
 /*
  ChromeOptions options = new ChromeOptions();
@@ -135,34 +120,5 @@ public class AlertTest implements ErrorInfo {
 
     }
 
-
-    String repeat(String source, int countLetter) {
-        StringBuilder sb = new StringBuilder();
-        while (sb.toString().length() < countLetter) {
-            sb.append(source);
-        }
-        return sb.substring(0, countLetter);
-    }
-
-//    protected URL startStandaloneGrid() {
-//        int port = 4444;
-//        try {
-//            Main.main(
-//                    new String[]{
-//                            "standalone",
-//                            "--port",
-//                            String.valueOf(port),
-//                            "--selenium-manager",
-//                            "true",
-//                            "--enable-managed-downloads",
-//                            "true",
-//                            "--log-level",
-//                            "WARNING"
-//                    });
-//            return new URL("http://localhost:" + port);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }
 

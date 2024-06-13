@@ -23,7 +23,7 @@ public abstract class BaseTest {
     protected TestInfo testInfo;
 
     @BeforeEach
-    void init(TestInfo testInfo) {
+  public  void init(TestInfo testInfo) {
         this.testInfo = testInfo;
         startChromeDriver();
         driver.manage().window().maximize();
@@ -73,7 +73,7 @@ public abstract class BaseTest {
         });
     }
 
-    String repeat(String source, int countLetter) {
+  public   String repeat(String source, int countLetter) {
         StringBuilder sb = new StringBuilder();
         while (sb.toString().length() < countLetter) {
             sb.append(source);
@@ -81,7 +81,7 @@ public abstract class BaseTest {
         return sb.substring(0, countLetter);
     }
 
-    void makeScreenshot(String pathFile, WebDriver driver) throws Exception {
+   public  void makeScreenshot(String pathFile, WebDriver driver) throws Exception {
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         File source = screenshot.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(source, new File(pathFile));

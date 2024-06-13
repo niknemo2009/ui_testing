@@ -1,37 +1,19 @@
 package lambdatest_com;
 
+import base.BaseTest;
 import lambdatest_com.page_object.CheckBoxPage;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import util_tests.ErrorInfo;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CheckBoxTest implements ErrorInfo {
-    public static final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
-    static private WebDriver driver;
-    static private CheckBoxPage checkBoxPage;
-    private TestInfo testInfo;
+public class CheckBoxTest extends BaseTest {
+    public  final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
+    private CheckBoxPage checkBoxPage;
 
-
-    @BeforeAll
-    public static void setUpAll() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+@BeforeEach
+    public  void init(TestInfo testInfo) {
+        super.init(testInfo);
         driver.get("https://www.lambdatest.com/selenium-playground/checkbox-demo");
         checkBoxPage = new CheckBoxPage(driver);
-    }
-
-    @AfterAll
-    static void afterAll() {
-        driver.close();
-        driver.quit();
-    }
-
-    @BeforeEach
-    void init(TestInfo testInfo) {
-        this.testInfo = testInfo;
     }
 
     @Test
