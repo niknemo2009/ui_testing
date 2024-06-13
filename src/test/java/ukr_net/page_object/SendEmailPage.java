@@ -1,7 +1,6 @@
 package ukr_net.page_object;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class SendEmailPage {
     private final WebDriver driver;
-    private JavascriptExecutor js;
+    private final JavascriptExecutor js;
     @FindBy(css = ".button.primary.compose")
     private WebElement buttonCreateEmail;
     @FindBy(name = "toFieldInput")
@@ -23,7 +22,7 @@ public class SendEmailPage {
     private List<WebElement> buttonsSend;
     @FindBy(xpath = "//button[text()='Файл']")
     private WebElement buttonFileAttach;
-     @FindBy(xpath = "//span[text()='Вхідні']")
+    @FindBy(xpath = "//span[text()='Вхідні']")
     private WebElement buttonInbox;
 
     public SendEmailPage(WebDriver driver) {

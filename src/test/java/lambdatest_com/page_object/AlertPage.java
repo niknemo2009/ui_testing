@@ -35,7 +35,7 @@ public class AlertPage {
         buttons.get(2).click();
     }
 
-   public  String getConfirmText() {
+    public String getConfirmText() {
         return textConfirm.getText();
     }
 

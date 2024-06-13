@@ -1,6 +1,6 @@
 package lambdatest_com;
 
-import util_tests.ErrorInfo;
+import lambdatest_com.page_object.AlertPage;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -10,8 +10,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import lambdatest_com.page_object.AlertPage;
+import util_tests.ErrorInfo;
+
 import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,7 +21,7 @@ public class AlertTest implements ErrorInfo {
     public static final String FILE_SCREENSHOTS = "./Screenshots/%s.png";
     static private WebDriver driver;
     static private AlertPage alertPage;
-      private TestInfo testInfo;
+    private TestInfo testInfo;
 
 
     @BeforeAll
@@ -45,7 +47,7 @@ public class AlertTest implements ErrorInfo {
     driver = new RemoteWebDriver(gridUrl, options);
  */
 
-//    @org.junit.jupiter.api.Test
+    //    @org.junit.jupiter.api.Test
 //    @DisplayName("1.0  ")
 //    public void testSimpleAlert33() throws Exception {
 //        ChromeOptions options = new ChromeOptions();

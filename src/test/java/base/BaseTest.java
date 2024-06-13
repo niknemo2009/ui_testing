@@ -1,25 +1,27 @@
 package base;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.File;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.util.UUID;
-
 public abstract class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
-   protected TestInfo testInfo;
+    protected TestInfo testInfo;
+
     @BeforeEach
     void init(TestInfo testInfo) {
         this.testInfo = testInfo;

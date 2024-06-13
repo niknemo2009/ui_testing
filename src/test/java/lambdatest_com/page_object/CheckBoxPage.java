@@ -10,11 +10,11 @@ import java.util.List;
 public class CheckBoxPage {
     private final WebDriver driver;
     @FindBy(css = "#isAgeSelected")
-  public   WebElement singleCheckBox;
+    public WebElement singleCheckBox;
     @FindBy(css = "#txtAge")
     public WebElement textSingle;
     @FindBy(css = "div.w-full.text-center.mt-40 input")
-  public   WebElement buttonMulti;
+    public WebElement buttonMulti;
     //    @FindBys({@FindBy(tagName = "div"), @FindBy(css= ".pb-10  input")})
     @FindBy(css = "div.pb-10  input")
     private List<WebElement> disableCheckBoxes;

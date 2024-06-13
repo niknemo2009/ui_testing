@@ -1,7 +1,6 @@
 package ukr_net.page_object;
 
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,8 +40,6 @@ public class LoginPage {
         inputPassword.clear();
         inputPassword.sendKeys(password);
     }
-
-
 
 
 }
