@@ -1,7 +1,7 @@
-package lambdatest_com;
+package com.lambdatest;
 
-import base.BaseTest;
-import lambdatest_com.page_object.CheckBoxPage;
+import com.lambdatest.base.BaseTest;
+import com.lambdatest.page_object.CheckBoxPage;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 

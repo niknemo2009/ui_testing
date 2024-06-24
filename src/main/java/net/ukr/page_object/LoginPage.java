@@ -1,4 +1,4 @@
-package ukr_net.page_object;
+package net.ukr.page_object;
 
 
 import org.openqa.selenium.WebDriver;

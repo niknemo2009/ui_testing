@@ -1,14 +1,19 @@
-package ukr_net.page_object;
+package net.ukr.page_object;
+
 
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ukr_net.pojo.Letter;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import net.ukr.model.Letter;
 
+import java.time.Duration;
 import java.util.List;
 
-public class SendEmailPage {
+public class SendEmailPage  {
     private final WebDriver driver;
     private final JavascriptExecutor js;
     @FindBy(css = ".button.primary.compose")
@@ -33,14 +38,14 @@ public class SendEmailPage {
 
 
     public void sendEmail(Letter letter) {
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".button.primary.compose")));
         buttonCreateEmail.click();
         inputReceiver.sendKeys(letter.receiver());
         inputSubject.sendKeys(letter.subject());
         WebElement iframe = driver.findElement(By.id("mce_0_ifr"));
         driver.switchTo().frame(iframe);
-        String newBody = """
-                '<body id="tinymce" class="mce-content-body " data-id="mce_2" contenteditable="true"><div><span style="font-size: 12pt; line-height: 14pt; font-family: Arial;" data-mce-style="line-height: 14pt; font-family: Arial; font-size: 12pt;" class="customFontStyle">%s</span></body>'    
-                    """.formatted(letter.message());
+        String newBody = letter.generateLettersBody(letter);
         js.executeScript("document.getElementById('tinymce').innerHTML=" + newBody);
         driver.switchTo().defaultContent();
         buttonsSend.get(0).click();
@@ -55,7 +60,6 @@ public class SendEmailPage {
             buttonInbox.click();
 
         }
-
         return new InboxTableLettersPage(driver);
     }
 

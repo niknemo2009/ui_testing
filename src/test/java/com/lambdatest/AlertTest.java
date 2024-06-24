@@ -1,7 +1,8 @@
-package lambdatest_com;
+package com.lambdatest;
 
-import base.BaseTest;
-import lambdatest_com.page_object.AlertPage;
+
+import com.lambdatest.base.BaseTest;
+import com.lambdatest.page_object.AlertPage;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
