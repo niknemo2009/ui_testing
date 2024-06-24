@@ -1,20 +1,15 @@
 package net.ukr.page_object;
 
 
-
+import net.ukr.model.Letter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import net.ukr.model.Letter;
 
-import java.time.Duration;
 import java.util.List;
 
-public class SendEmailPage  {
-    private final WebDriver driver;
+public class SendEmailPage extends BasePage {
+
     private final JavascriptExecutor js;
     @FindBy(css = ".button.primary.compose")
     private WebElement buttonCreateEmail;
@@ -31,25 +26,43 @@ public class SendEmailPage  {
     private WebElement buttonInbox;
 
     public SendEmailPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         js = (JavascriptExecutor) driver;
-        PageFactory.initElements(driver, this);
+
     }
 
 
     public void sendEmail(Letter letter) {
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".button.primary.compose")));
-        buttonCreateEmail.click();
-        inputReceiver.sendKeys(letter.receiver());
-        inputSubject.sendKeys(letter.subject());
+        clickInbox().
+                clickCreateEmail().
+                typeReceiver(letter.receiver()).
+                typeSubject(letter.subject());
         WebElement iframe = driver.findElement(By.id("mce_0_ifr"));
         driver.switchTo().frame(iframe);
-        String newBody = letter.generateLettersBody(letter);
-        js.executeScript("document.getElementById('tinymce').innerHTML=" + newBody);
+        js.executeScript("document.getElementById('tinymce').innerHTML=" + letter.generateLettersBody());
         driver.switchTo().defaultContent();
         buttonsSend.get(0).click();
 
+    }
+
+    private SendEmailPage clickCreateEmail() {
+        wait.until(ExpectedConditions.elementToBeClickable(buttonCreateEmail));
+        return this;
+    }
+
+    private SendEmailPage clickInbox() {
+        wait.until(ExpectedConditions.elementToBeClickable(buttonInbox));
+        return this;
+    }
+
+    private SendEmailPage typeReceiver(String emailReceiver) {
+        wait.until(ExpectedConditions.visibilityOf(inputReceiver)).sendKeys(emailReceiver);
+        return this;
+    }
+
+    private SendEmailPage typeSubject(String emailSubject) {
+        wait.until(ExpectedConditions.visibilityOf(inputSubject)).sendKeys(emailSubject);
+        return this;
     }
 
     public InboxTableLettersPage toInbox() {

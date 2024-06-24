@@ -1,23 +1,21 @@
 package net.ukr.page_object;
 
+import net.ukr.model.Letter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import net.ukr.model.Letter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InboxTableLettersPage {
-    private final WebDriver driver;
+public class InboxTableLettersPage extends BasePage {
+
     @FindBy(css = "table.noselect")
     private WebElement tableLetters;
 
     public InboxTableLettersPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
     public boolean findLetterInInbox(Letter letter) {
