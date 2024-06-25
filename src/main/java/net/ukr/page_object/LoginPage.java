@@ -24,23 +24,19 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    /**
-     * Sign in existing user .
-     *
-     * @param existingUser the existing user
-     * @return @{@link SendEmailPage}
-     */
-    public SendEmailPage loginExistingUser(User existingUser) {
-        typeLogin(existingUser.login()).
-                typePassword(existingUser.password()).
-                submitLogin();
-        return new SendEmailPage(driver);
-    }
 
+    /**
+     * Sign In any user
+     *
+     * @param <T>  the generic parameter
+     * @param user the instance type User
+     * @param page the instance type T
+     * @return the instance  type T
+     */
     public <T extends BasePage> T signinUser(User user, T page) {
         return typeLogin(user.login()).
                 typePassword(user.password()).
-                submitLogin().getNextPage(page);
+                submitLogin(page);
 
     }
 
@@ -58,10 +54,10 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    private LoginPage submitLogin() {
+    private <T> T submitLogin(T page) {
         wait.until(ExpectedConditions.elementToBeClickable(buttonLogin));
         buttonLogin.click();
-        return this;
+        return page;
     }
 }
 

@@ -19,11 +19,13 @@ public class SendEmailPage extends BasePage {
 //    private List<WebElement> buttonsSend;
     @FindBy(xpath = "//*[@id=\"screens\"]/div/div[1]/div/button")
     private WebElement submitSend;
-    @FindBy(xpath = "//button[text()='Файл']")
-    private WebElement buttonFileAttach;
+
     @FindBy(xpath = "//span[text()='Вхідні']")
     private WebElement buttonInbox;
-
+    @FindBy(id = "mce_0_ifr")
+    WebElement iframe;
+    @FindBy(id = "tinymce")
+    WebElement bodyLetter;
     public SendEmailPage(WebDriver driver) {
         super(driver);
         js = (JavascriptExecutor) driver;
@@ -31,16 +33,17 @@ public class SendEmailPage extends BasePage {
     }
 
 
-    public void sendEmail(Letter letter) {
+    public <T extends BasePage> T sendEmail(Letter letter, T page) {
         clickInbox().
                 clickCreateEmail().
                 typeReceiver(letter.receiver()).
                 typeSubject(letter.subject());
-        WebElement iframe = driver.findElement(By.id("mce_0_ifr"));
+        wait.until(ExpectedConditions.visibilityOf(iframe));
         driver.switchTo().frame(iframe);
+        wait.until(ExpectedConditions.elementToBeClickable(bodyLetter));
         js.executeScript("document.getElementById('tinymce').innerHTML=" + letter.generateLettersBody());
         driver.switchTo().defaultContent();
-        submitSendClick();
+        return submitSendClick(page);
 
     }
 
@@ -75,8 +78,9 @@ public class SendEmailPage extends BasePage {
         return new InboxTableLettersPage(driver);
     }
 
-    private void submitSendClick() {
+    private <T extends BasePage> T submitSendClick(T page) {
         wait.until(ExpectedConditions.elementToBeClickable(submitSend)).click();
+        return page;
     }
 
 }

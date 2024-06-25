@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class SendReceiveLetterTest extends BaseTest {
     private LoginPage loginPage;
-    private BasePage PageAfterSigninUser;
+    private BasePage pageAfterSigninUser;
     private InboxTableLettersPage inboxTableLettersPage;
     private final User EXISTING_USER = new User(System.getProperty("user"), System.getProperty("password"));
     private final String EXPECTED_TITLE = "Пошта @ ukr.net - українська електронна пошта • Створи емейл";
@@ -34,14 +34,13 @@ public class SendReceiveLetterTest extends BaseTest {
     }
 
     //@org.junit.jupiter.api.Test
-    @RepeatedTest(1)
+    @RepeatedTest(13)
     public void sendValidEmail() {
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
-        // sendEmailPage = loginPage.loginExistingUser(EXISTING_USER);
-        PageAfterSigninUser = loginPage.signinUser(EXISTING_USER, new SendEmailPage(driver));
+        pageAfterSigninUser = loginPage.signinUser(EXISTING_USER, new SendEmailPage(driver));
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
-        ((SendEmailPage) PageAfterSigninUser).sendEmail(validLetter);
-        inboxTableLettersPage = ((SendEmailPage) PageAfterSigninUser).toInbox();
+        ((SendEmailPage) pageAfterSigninUser).sendEmail(validLetter, new ExpectedPage(driver));
+        inboxTableLettersPage = ((SendEmailPage) pageAfterSigninUser).toInbox();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         wait.until(d -> inboxTableLettersPage.findLetterInInbox(validLetter));
         Assertions.assertTrue(inboxTableLettersPage.findLetterInInbox(validLetter));

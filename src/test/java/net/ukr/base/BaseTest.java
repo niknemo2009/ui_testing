@@ -27,8 +27,8 @@ public abstract class BaseTest {
     @AfterEach
     public void quit() {
         if (driver != null) {
-//            driver.close();
-//            driver.quit();
+            driver.close();
+            driver.quit();
         }
     }
 

@@ -16,8 +16,6 @@ public abstract class BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public final <T> T getNextPage(T page) {
-        return page;
-    }
+
 }
 
