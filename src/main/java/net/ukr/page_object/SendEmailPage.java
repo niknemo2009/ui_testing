@@ -6,8 +6,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.List;
-
 public class SendEmailPage extends BasePage {
 
     private final JavascriptExecutor js;
@@ -17,9 +15,10 @@ public class SendEmailPage extends BasePage {
     private WebElement inputReceiver;
     @FindBy(css = "input.input[name='subject']")
     private WebElement inputSubject;
-
-    @FindBy(xpath = "//button[text()='Надіслати']")
-    private List<WebElement> buttonsSend;
+    //    @FindBy(xpath = "//button[text()='Надіслати']") ??????????????????????????
+//    private List<WebElement> buttonsSend;
+    @FindBy(xpath = "//*[@id=\"screens\"]/div/div[1]/div/button")
+    private WebElement submitSend;
     @FindBy(xpath = "//button[text()='Файл']")
     private WebElement buttonFileAttach;
     @FindBy(xpath = "//span[text()='Вхідні']")
@@ -41,12 +40,13 @@ public class SendEmailPage extends BasePage {
         driver.switchTo().frame(iframe);
         js.executeScript("document.getElementById('tinymce').innerHTML=" + letter.generateLettersBody());
         driver.switchTo().defaultContent();
-        buttonsSend.get(0).click();
+        //buttonsSend.get(0).click();
+        submitSendClick();
 
     }
 
     private SendEmailPage clickCreateEmail() {
-        wait.until(ExpectedConditions.elementToBeClickable(buttonCreateEmail));
+        wait.until(ExpectedConditions.elementToBeClickable(buttonCreateEmail)).click();
         return this;
     }
 
@@ -67,7 +67,7 @@ public class SendEmailPage extends BasePage {
 
     public InboxTableLettersPage toInbox() {
         try {
-            buttonInbox.click();
+            wait.until(ExpectedConditions.elementToBeClickable(buttonInbox)).click();
         } catch (StaleElementReferenceException e) {
             buttonInbox = driver.findElement(By.xpath("//span[text()='Вхідні']"));
             buttonInbox.click();
@@ -76,5 +76,8 @@ public class SendEmailPage extends BasePage {
         return new InboxTableLettersPage(driver);
     }
 
+    private void submitSendClick() {
+        wait.until(ExpectedConditions.elementToBeClickable(submitSend)).click();
+    }
+
 }
-//todo Command or Builder for dif variants send(simple,with  attach ...) ???

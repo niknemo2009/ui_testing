@@ -8,9 +8,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
+
 public class LoginPage extends BasePage {
-    //    private final WebDriver driver;
-//    protected WebDriverWait wait;
+
     @FindBy(name = "login")
     private WebElement inputLogin;
     @FindBy(name = "password")
@@ -24,6 +24,12 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    /**
+     * Sign in existing user .
+     *
+     * @param existingUser the existing user
+     * @return @{@link SendEmailPage}
+     */
     public SendEmailPage loginExistingUser(User existingUser) {
         typeLogin(existingUser.login()).
                 typePassword(existingUser.password()).

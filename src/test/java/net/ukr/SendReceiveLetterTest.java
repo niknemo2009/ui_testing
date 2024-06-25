@@ -9,6 +9,7 @@ import net.ukr.page_object.LoginPage;
 import net.ukr.page_object.SendEmailPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -31,12 +32,12 @@ public class SendReceiveLetterTest extends BaseTest {
 
     }
 
-    @org.junit.jupiter.api.Test
-    public void sendValidEmail() throws InterruptedException {
+    //@org.junit.jupiter.api.Test
+    @RepeatedTest(1)
+    public void sendValidEmail() {
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         sendEmailPage = loginPage.loginExistingUser(EXISTING_USER);
-        String subject = "test_subject_" + UUID.randomUUID();
-        Letter validLetter = new Letter(EXISTING_USER.login(), subject, "message 133333327777456");
+        Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
         sendEmailPage.sendEmail(validLetter);
         inboxTableLettersPage = sendEmailPage.toInbox();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1));
