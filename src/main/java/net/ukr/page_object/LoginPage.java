@@ -33,7 +33,7 @@ public class LoginPage extends BasePage {
      * @param page the instance type T
      * @return the instance  type T
      */
-    public <T extends BasePage> T signinUser(User user, T page) {
+    public <T extends BasePage> T signInUser(User user, T page) {
         return typeLogin(user.login()).
                 typePassword(user.password()).
                 submitLogin(page);

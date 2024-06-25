@@ -53,7 +53,7 @@ public class SendEmailPage extends BasePage {
     }
 
     private SendEmailPage clickInbox() {
-        wait.until(ExpectedConditions.elementToBeClickable(buttonInbox));
+        wait.until(ExpectedConditions.elementToBeClickable(buttonInbox)).click();
         return this;
     }
 

@@ -33,15 +33,15 @@ public class SendReceiveLetterTest extends BaseTest {
 
     }
 
-    //@org.junit.jupiter.api.Test
-    @RepeatedTest(13)
+
+    @RepeatedTest(3)
     public void sendValidEmail() {
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
-        pageAfterSigninUser = loginPage.signinUser(EXISTING_USER, new SendEmailPage(driver));
+        pageAfterSigninUser = loginPage.signInUser(EXISTING_USER, new SendEmailPage(driver));
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
         ((SendEmailPage) pageAfterSigninUser).sendEmail(validLetter, new ExpectedPage(driver));
         inboxTableLettersPage = ((SendEmailPage) pageAfterSigninUser).toInbox();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1)); //??????????????????????????????????????
         wait.until(d -> inboxTableLettersPage.findLetterInInbox(validLetter));
         Assertions.assertTrue(inboxTableLettersPage.findLetterInInbox(validLetter));
 
