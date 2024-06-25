@@ -15,4 +15,9 @@ public abstract class BasePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         PageFactory.initElements(driver, this);
     }
+
+    public final <T> T getNextPage(T page) {
+        return page;
+    }
 }
+

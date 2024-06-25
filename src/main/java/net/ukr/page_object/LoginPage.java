@@ -37,6 +37,13 @@ public class LoginPage extends BasePage {
         return new SendEmailPage(driver);
     }
 
+    public <T extends BasePage> T signinUser(User user, T page) {
+        return typeLogin(user.login()).
+                typePassword(user.password()).
+                submitLogin().getNextPage(page);
+
+    }
+
     private LoginPage typeLogin(String login) {
         wait.until(ExpectedConditions.visibilityOf(inputLogin));
         inputLogin.clear();
@@ -51,9 +58,10 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    private void submitLogin() {
+    private LoginPage submitLogin() {
         wait.until(ExpectedConditions.elementToBeClickable(buttonLogin));
         buttonLogin.click();
+        return this;
     }
 }
 

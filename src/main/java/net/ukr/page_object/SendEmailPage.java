@@ -40,7 +40,6 @@ public class SendEmailPage extends BasePage {
         driver.switchTo().frame(iframe);
         js.executeScript("document.getElementById('tinymce').innerHTML=" + letter.generateLettersBody());
         driver.switchTo().defaultContent();
-        //buttonsSend.get(0).click();
         submitSendClick();
 
     }

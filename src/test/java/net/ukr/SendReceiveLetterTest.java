@@ -4,6 +4,7 @@ package net.ukr;
 import net.ukr.base.BaseTest;
 import net.ukr.model.Letter;
 import net.ukr.model.User;
+import net.ukr.page_object.BasePage;
 import net.ukr.page_object.InboxTableLettersPage;
 import net.ukr.page_object.LoginPage;
 import net.ukr.page_object.SendEmailPage;
@@ -19,7 +20,7 @@ import java.util.UUID;
 
 public class SendReceiveLetterTest extends BaseTest {
     private LoginPage loginPage;
-    private SendEmailPage sendEmailPage;
+    private BasePage PageAfterSigninUser;
     private InboxTableLettersPage inboxTableLettersPage;
     private final User EXISTING_USER = new User(System.getProperty("user"), System.getProperty("password"));
     private final String EXPECTED_TITLE = "Пошта @ ukr.net - українська електронна пошта • Створи емейл";
@@ -36,10 +37,11 @@ public class SendReceiveLetterTest extends BaseTest {
     @RepeatedTest(1)
     public void sendValidEmail() {
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
-        sendEmailPage = loginPage.loginExistingUser(EXISTING_USER);
+        // sendEmailPage = loginPage.loginExistingUser(EXISTING_USER);
+        PageAfterSigninUser = loginPage.signinUser(EXISTING_USER, new SendEmailPage(driver));
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
-        sendEmailPage.sendEmail(validLetter);
-        inboxTableLettersPage = sendEmailPage.toInbox();
+        ((SendEmailPage) PageAfterSigninUser).sendEmail(validLetter);
+        inboxTableLettersPage = ((SendEmailPage) PageAfterSigninUser).toInbox();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         wait.until(d -> inboxTableLettersPage.findLetterInInbox(validLetter));
         Assertions.assertTrue(inboxTableLettersPage.findLetterInInbox(validLetter));
