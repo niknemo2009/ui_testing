@@ -1,6 +1,8 @@
-package net_ukr_actions.page_object;
+package net_ukr_actions.actions;
 
-import net.ukr.model.User;
+
+import net_ukr_actions.model.User;
+import net_ukr_actions.page_object.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ActionsLoginPage {
+public class ActionsLoginPage implements Validateble {
     LoginPage loginPage;
     WebDriver driver;
     protected WebDriverWait wait;
@@ -19,10 +21,10 @@ public class ActionsLoginPage {
         this.driver = driver;
     }
 
-    public <T extends BasePage> T signInUser(User user, T page) {
+    public <T> T signInUser(User user, T actions) {
         return typeLogin(user.login()).
                 typePassword(user.password()).
-                submitLogin(page);
+                submitLogin(actions);
 
     }
 
@@ -42,11 +44,16 @@ public class ActionsLoginPage {
         return this;
     }
 
-    private <T> T submitLogin(T page) {
+    private <T> T submitLogin(T actions) {
         WebElement element = driver.findElement(loginPage.buttonLogin());
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
-        return page;
+        return actions;
+    }
+
+    @Override
+    public boolean validate() {
+        return false;
     }
 }
 

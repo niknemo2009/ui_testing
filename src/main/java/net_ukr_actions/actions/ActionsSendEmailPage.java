@@ -1,6 +1,7 @@
-package net_ukr_actions.page_object;
+package net_ukr_actions.actions;
 
 import net_ukr_actions.model.Letter;
+import net_ukr_actions.page_object.SendEmailPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class ActionsSendEmailPage {
+public class ActionsSendEmailPage implements Validateble {
     SendEmailPage sendEmailPage;
     WebDriver driver;
     protected WebDriverWait wait;
@@ -24,7 +25,7 @@ public class ActionsSendEmailPage {
     }
 
 
-    public <T> T sendEmail(Letter letter, T page) {
+    public <T> T sendEmail(Letter letter, T actions) {
         clickInbox().
                 clickCreateEmail().
                 typeReceiver(letter.receiver()).
@@ -36,7 +37,7 @@ public class ActionsSendEmailPage {
         wait.until(ExpectedConditions.elementToBeClickable(bodyLetter));
         js.executeScript("document.getElementById('tinymce').innerHTML=" + letter.generateLettersBody());
         driver.switchTo().defaultContent();
-        return submitSendClick(page);
+        return submitSendClick(actions);
 
     }
 
@@ -64,19 +65,24 @@ public class ActionsSendEmailPage {
         return this;
     }
 
-    public InboxTableLettersPage toInbox() {
+    public ActionsInboxTableLettersPage toInbox() {
         try {
             WebElement element = driver.findElement(sendEmailPage.buttonInbox());
             wait.until(ExpectedConditions.elementToBeClickable(element)).click();
         } catch (StaleElementReferenceException e) {
             toInbox();
         }
-        return new InboxTableLettersPage(driver);
+        return new ActionsInboxTableLettersPage(driver);
     }
 
-    private <T> T submitSendClick(T page) {
+    private <T> T submitSendClick(T actions) {
         WebElement element = driver.findElement(sendEmailPage.submitSend());
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-        return page;
+        return actions;
+    }
+
+    @Override
+    public boolean validate() {
+        return false;
     }
 }
