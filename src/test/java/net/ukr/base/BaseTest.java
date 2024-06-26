@@ -27,8 +27,8 @@ public abstract class BaseTest {
     @AfterEach
     public void quit() {
         if (driver != null) {
-//            driver.close();
-//            driver.quit();
+            driver.close();
+            driver.quit();
         }
     }
 
@@ -60,7 +60,7 @@ public abstract class BaseTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
-        options.setImplicitWaitTimeout(Duration.ofSeconds(1));
+        options.setImplicitWaitTimeout(Duration.ofSeconds(5));
         startChromeDriver(options);
     }
 
