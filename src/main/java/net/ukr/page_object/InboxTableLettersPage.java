@@ -38,12 +38,12 @@ public class InboxTableLettersPage extends BasePage {
         return result;
     }
 
-    private static String getDataEmail(WebElement row) {
+    private String getDataEmail(WebElement row) {
         //?????????????????????????????//
         return row.findElement(By.cssSelector(".msglist__row-subject a")).getText();
     }
 
-    private static String getSenderEmail(WebElement row) {
+    private String getSenderEmail(WebElement row) {
         //?????????????????????????????//
         return row.findElement(By.cssSelector(".msglist__row-address a")).getAttribute("data-email");
     }
