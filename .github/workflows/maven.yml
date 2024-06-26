@@ -34,9 +34,9 @@ jobs:
     - name: Testing with Maven
       #   run: mvn -B package --file pom.xml -Dsurefire.failIfNoSpecifiedTests=true
       run: mvn clean test -Dtest=net.ukr.*Test*  -Duser=${{secrets.user}}   -Dpassword=${{secrets.password}}   -Dreceiver=${{secrets.receiver}}  -Dsurefire.failIfNoSpecifiedTests=true
-             - uses: actions/upload-artifact@v4  # upload test results
-             if: success() || failure()        # run this step even if previous step failed
-             with:
+    - uses: actions/upload-artifact@v4
+      if: success() || failure()        # run this step even if previous step failed
+      with:
              name: test-results
              path: jest-junit.xml
 #    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
