@@ -8,6 +8,7 @@ import net.ukr.page_object.BasePage;
 import net.ukr.page_object.InboxTableLettersPage;
 import net.ukr.page_object.LoginPage;
 import net.ukr.page_object.SendEmailPage;
+import net_ukr_actions.ExpectedPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;

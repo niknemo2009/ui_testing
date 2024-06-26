@@ -20,7 +20,7 @@ public class SendEmailPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"screens\"]/div/div[1]/div/button")
     private WebElement submitSend;
 
-    @FindBy(xpath = "//span[text()='Вхідні']")
+    @FindBy(xpath = "//*[@id=\"0\"]/span[4]")
     private WebElement buttonInbox;
     @FindBy(id = "mce_0_ifr")
     WebElement iframe;
@@ -53,7 +53,7 @@ public class SendEmailPage extends BasePage {
     }
 
     private SendEmailPage clickInbox() {
-        wait.until(ExpectedConditions.elementToBeClickable(buttonInbox)).click();
+        wait.until(ExpectedConditions.visibilityOf(buttonInbox)).click();
         return this;
     }
 

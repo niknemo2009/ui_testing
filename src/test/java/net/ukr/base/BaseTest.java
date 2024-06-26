@@ -19,7 +19,7 @@ public abstract class BaseTest {
     @BeforeEach
   public  void init(TestInfo testInfo) {
         this.testInfo = testInfo;
-        startChromeDriver();
+        startChromeDriver33();
         driver.manage().window().maximize();
 
     }
@@ -27,8 +27,8 @@ public abstract class BaseTest {
     @AfterEach
     public void quit() {
         if (driver != null) {
-            driver.close();
-            driver.quit();
+//            driver.close();
+//            driver.quit();
         }
     }
 
@@ -55,5 +55,13 @@ public abstract class BaseTest {
 
     }
 
+    protected void startChromeDriver33() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        options.setImplicitWaitTimeout(Duration.ofSeconds(1));
+        startChromeDriver(options);
+    }
 
 }
