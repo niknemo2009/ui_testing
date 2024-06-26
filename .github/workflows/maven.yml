@@ -34,7 +34,7 @@ jobs:
     - name: Testing with Maven
       #   run: mvn -B package --file pom.xml -Dsurefire.failIfNoSpecifiedTests=true
       run: mvn clean test -Dtest=net.ukr.*Test*  -Duser=${{secrets.user}}   -Dpassword=${{secrets.password}}   -Dreceiver=${{secrets.receiver}}  -Dsurefire.failIfNoSpecifiedTests=true
-    - uses: dorny/test-reporter@v1
+    - uses: dorny/test-reporter@v1.9.1
       with:
         artifact: test-results            # artifact name
         name: Junit Tests                  # Name of the check run which will be created
