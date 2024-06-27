@@ -13,9 +13,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public abstract class BaseTest {
     protected WebDriver driver;
@@ -25,7 +22,7 @@ public abstract class BaseTest {
     @BeforeEach
   public  void init(TestInfo testInfo) {
         this.testInfo = testInfo;
-        startChromeDriver();
+        startChromeDriver33();
         driver.manage().window().maximize();
 
     }
@@ -65,13 +62,6 @@ public abstract class BaseTest {
         return (ChromeDriver) driver;
     }
 
-    protected void enableLogging() {
-        Logger logger = Logger.getLogger("");
-        logger.setLevel(Level.FINE);
-        Arrays.stream(logger.getHandlers()).forEach(handler -> {
-            handler.setLevel(Level.FINE);
-        });
-    }
 
   public   String repeat(String source, int countLetter) {
         StringBuilder sb = new StringBuilder();
@@ -79,6 +69,15 @@ public abstract class BaseTest {
             sb.append(source);
         }
         return sb.substring(0, countLetter);
+    }
+
+    protected void startChromeDriver33() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        options.setImplicitWaitTimeout(Duration.ofSeconds(5));
+        startChromeDriver(options);
     }
 
    public  void makeScreenshot(String pathFile, WebDriver driver) throws Exception {
