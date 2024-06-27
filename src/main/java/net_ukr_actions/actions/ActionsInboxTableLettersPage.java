@@ -32,8 +32,8 @@ public class ActionsInboxTableLettersPage implements Validateble {
 
     public List<Letter> getAllLettersOnPage() {
         List<Letter> result = new ArrayList<>();
-        List<WebElement> rowLetters = driver.findElements(inboxTableLettersPage.rowLetters());
-        wait.until(ExpectedConditions.visibilityOfAllElements(rowLetters));
+        // List<WebElement> rowLetters = driver.findElements(inboxTableLettersPage.rowLetters());
+        List<WebElement> rowLetters = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(inboxTableLettersPage.rowLetters()));
         for (WebElement row : rowLetters) {
             var sender = getSenderEmail(row);
             var data = getDataEmail(row);

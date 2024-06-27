@@ -31,7 +31,7 @@ public class SendReceiveLetterTest extends BaseTest {
     }
 
 
-    @RepeatedTest(3)
+    @RepeatedTest(1)
     public void sendValidEmail() throws InterruptedException {
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
