@@ -15,8 +15,6 @@ public class SendEmailPage extends BasePage {
     private WebElement inputReceiver;
     @FindBy(css = "input.input[name='subject']")
     private WebElement inputSubject;
-    //    @FindBy(xpath = "//button[text()='Надіслати']") ??????????????????????????
-//    private List<WebElement> buttonsSend;
     @FindBy(xpath = "//*[@id=\"screens\"]/div/div[1]/div/button")
     private WebElement submitSend;
 

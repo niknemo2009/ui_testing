@@ -19,7 +19,7 @@ public abstract class BaseTest {
     @BeforeEach
   public  void init(TestInfo testInfo) {
         this.testInfo = testInfo;
-        startChromeDriver33();
+        startChromeDriver();
         driver.manage().window().maximize();
 
     }

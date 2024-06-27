@@ -1,5 +1,6 @@
 package net_ukr_actions.actions;
 
+
 import net_ukr_actions.model.Letter;
 import net_ukr_actions.page_object.SendEmailPage;
 import org.openqa.selenium.JavascriptExecutor;
@@ -7,21 +8,15 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class ActionsSendEmailPage implements Validateble {
-    SendEmailPage sendEmailPage;
-    WebDriver driver;
-    protected WebDriverWait wait;
-    JavascriptExecutor js;
+public class ActionsSendEmailPage extends BaseActions {
+    private final SendEmailPage sendEmailPage;
+    private final JavascriptExecutor js;
 
     public ActionsSendEmailPage(WebDriver driver) {
+        super(driver);
         sendEmailPage = new SendEmailPage();
-        this.driver = driver;
         js = (JavascriptExecutor) driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
 
@@ -30,11 +25,9 @@ public class ActionsSendEmailPage implements Validateble {
                 clickCreateEmail().
                 typeReceiver(letter.receiver()).
                 typeSubject(letter.subject());
-        WebElement iframe = driver.findElement(sendEmailPage.iframe());
-        wait.until(ExpectedConditions.visibilityOf(iframe));
+        WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(sendEmailPage.iframe()));
         driver.switchTo().frame(iframe);
-        WebElement bodyLetter = driver.findElement(sendEmailPage.bodyLetter());
-        wait.until(ExpectedConditions.elementToBeClickable(bodyLetter));
+        wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.bodyLetter()));
         js.executeScript("document.getElementById('tinymce').innerHTML=" + letter.generateLettersBody());
         driver.switchTo().defaultContent();
         return submitSendClick(actions);
@@ -42,33 +35,30 @@ public class ActionsSendEmailPage implements Validateble {
     }
 
     private ActionsSendEmailPage clickCreateEmail() {
-        WebElement element = driver.findElement(sendEmailPage.buttonCreateEmail());
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        makeScreenshot("clickCreateEmail.png", driver);
+        wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.buttonCreateEmail())).click();
         return this;
     }
 
     private ActionsSendEmailPage clickInbox() {
-        WebElement element = driver.findElement(sendEmailPage.buttonInbox());
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        makeScreenshot("clickInbox.png", driver);
+        wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.buttonInbox())).click();
         return this;
     }
 
     private ActionsSendEmailPage typeReceiver(String emailReceiver) {
-        WebElement element = driver.findElement(sendEmailPage.inputReceiver());
-        wait.until(ExpectedConditions.visibilityOf(element)).sendKeys(emailReceiver);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sendEmailPage.inputReceiver())).sendKeys(emailReceiver);
         return this;
     }
 
     private ActionsSendEmailPage typeSubject(String emailSubject) {
-        WebElement element = driver.findElement(sendEmailPage.inputSubject());
-        wait.until(ExpectedConditions.visibilityOf(element)).sendKeys(emailSubject);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(sendEmailPage.inputSubject())).sendKeys(emailSubject);
         return this;
     }
 
     public ActionsInboxTableLettersPage toInbox() {
         try {
-            WebElement element = driver.findElement(sendEmailPage.buttonInbox());
-            wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(sendEmailPage.buttonInbox())).click();
         } catch (StaleElementReferenceException e) {
             toInbox();
         }
@@ -76,13 +66,9 @@ public class ActionsSendEmailPage implements Validateble {
     }
 
     private <T> T submitSendClick(T actions) {
-        WebElement element = driver.findElement(sendEmailPage.submitSend());
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.submitSend())).click();
         return actions;
     }
 
-    @Override
-    public boolean validate() {
-        return false;
-    }
+
 }

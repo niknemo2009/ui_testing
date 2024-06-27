@@ -2,9 +2,11 @@ package net.ukr.page_object;
 
 
 import net.ukr.model.User;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.pagefactory.ByAll;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
@@ -19,7 +21,7 @@ public class LoginPage extends BasePage {
     private WebElement buttonLogin;
     @FindBy(xpath = "/html/head/title")
     private WebElement titlePage;
-
+    private final By qwe = new ByAll(By.tagName("form"), By.className("row"));
     public LoginPage(WebDriver driver) {
         super(driver);
     }

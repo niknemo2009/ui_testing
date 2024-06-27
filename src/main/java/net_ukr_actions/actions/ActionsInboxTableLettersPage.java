@@ -13,7 +13,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionsInboxTableLettersPage implements Validateble {
+public class ActionsInboxTableLettersPage {
     InboxTableLettersPage inboxTableLettersPage;
     WebDriver driver;
     protected WebDriverWait wait;
@@ -46,17 +46,12 @@ public class ActionsInboxTableLettersPage implements Validateble {
     }
 
     private String getDataEmail(WebElement row) {
-        //?????????????????????????????//
         return row.findElement(By.cssSelector(".msglist__row-subject a")).getText();
     }
 
     private String getSenderEmail(WebElement row) {
-        //?????????????????????????????//
         return row.findElement(By.cssSelector(".msglist__row-address a")).getAttribute("data-email");
     }
 
-    @Override
-    public boolean validate() {
-        return false;
-    }
+
 }
