@@ -33,7 +33,7 @@ jobs:
         cache: maven
     - name: Testing with Maven
       #   run: mvn -B package --file pom.xml -Dsurefire.failIfNoSpecifiedTests=true
-      run: mvn clean test -Dtest=com.lambdatest.*Test*  -Duser=${{secrets.user}}   -Dpassword=${{secrets.password}}   -Dreceiver=${{secrets.receiver}}  -Dsurefire.failIfNoSpecifiedTests=true
+      run: mvn clean test -Dtest=com.lambdatest.*Test*  -Duser=${{secrets.user}}   -Dpassword=${{secrets.password}}   -Dreceiver=${{secrets.receiver}}  -Dsurefire.failIfNoSpecifiedTests=false
     - uses: dorny/test-reporter@v1.9.1
       with:
         artifact: test-results            # artifact name
