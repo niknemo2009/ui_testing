@@ -74,7 +74,7 @@ public class AlertTest extends BaseTest {
         alert.dismiss();
         makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()), driver);
         assertAll("Problem with Confirm Alert (Cancel)!",
-                () -> assertEquals("Press a button!333", textInAlert, "Problem with text in Confirm Alert!"),
+                () -> assertEquals("Press a button!", textInAlert, "Problem with text in Confirm Alert!"),
                 () -> assertEquals(alertPage.getConfirmText(), "You pressed Cancel!", "Problem with Cancel confirm message on page!")
         );
 
