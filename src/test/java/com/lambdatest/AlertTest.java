@@ -3,7 +3,10 @@ package com.lambdatest;
 
 import com.lambdatest.base.BaseTest;
 import com.lambdatest.page_object.AlertPage;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.Alert;
@@ -11,7 +14,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 import java.time.Duration;
 
@@ -72,7 +74,7 @@ public class AlertTest extends BaseTest {
         alert.dismiss();
         makeScreenshot(FILE_SCREENSHOTS.formatted(testInfo.getDisplayName()), driver);
         assertAll("Problem with Confirm Alert (Cancel)!",
-                () -> assertEquals("Press a button!", textInAlert, "Problem with text in Confirm Alert!"),
+                () -> assertEquals("Press a button!33", textInAlert, "Problem with text in Confirm Alert!"),
                 () -> assertEquals(alertPage.getConfirmText(), "You pressed Cancel!", "Problem with Cancel confirm message on page!")
         );
 
