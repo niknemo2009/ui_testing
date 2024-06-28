@@ -13,7 +13,7 @@ import java.time.Duration;
 public class BaseActions {
     protected WebDriver driver;
     protected WebDriverWait wait;
-
+    public final String FILE_SCREENSHOTS = "./Screenshots/";
     public BaseActions(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));

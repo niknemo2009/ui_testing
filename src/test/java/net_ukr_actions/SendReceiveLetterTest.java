@@ -9,7 +9,11 @@ import net_ukr_actions.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.UUID;
 
 public class SendReceiveLetterTest extends BaseTest {
@@ -27,20 +31,16 @@ public class SendReceiveLetterTest extends BaseTest {
     }
 
 
-    @RepeatedTest(1)
+    @RepeatedTest(3)
     public void sendValidEmail() throws Exception {
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
-        var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver));
-        expectedActions.sendEmail(validLetter, new ActionsSendEmailPage(driver));
-//                        .
-//                sendEmail(validLetter, new ActionsSendEmailPage(driver));
-//                        .
-//                toInbox();
-//        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1)); //??????????????????????????????????????
-//        wait.until(d -> expectedActions.findLetterInInbox(validLetter));
-//
-//        Assertions.assertTrue(expectedActions.findLetterInInbox(validLetter));
+        var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver))
+                .sendEmail(validLetter, new ActionsSendEmailPage(driver)).
+                toInbox();
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1)); //??????????????????????????????????????
+        wait.until(d -> expectedActions.findLetterInInbox(validLetter));
+        Assertions.assertTrue(expectedActions.findLetterInInbox(validLetter));
 
 
     }

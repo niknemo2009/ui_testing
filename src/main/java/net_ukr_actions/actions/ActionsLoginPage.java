@@ -38,9 +38,19 @@ public class ActionsLoginPage extends BaseActions {
     }
 
     private <T> T submitLogin(T actions) {
-        wait.until(ExpectedConditions.elementToBeClickable(loginPage.buttonLogin())).click();
-        makeScreenshot("submitLogin.png", driver);
+        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + "1.png", driver);
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(loginPage.buttonLogin()));
+        element.click();
+        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + "2.png", driver);
         return actions;
+    }
+
+    private static String nameMetod() {
+        return new Object() {
+        }
+                .getClass()
+                .getEnclosingMethod()
+                .getName();
     }
 }
 

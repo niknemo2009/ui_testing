@@ -1,8 +1,6 @@
 package net_ukr_actions.base;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.WebDriver;
@@ -19,15 +17,15 @@ public abstract class BaseTest {
     protected TestInfo testInfo;
 
 
-    @BeforeAll
-    static void setupClass() {
-        WebDriverManager.chromedriver().setup();
-    }
+//    @BeforeAll
+//    static void setupClass() {
+//        WebDriverManager.chromedriver().setup();
+//    }
 
     @BeforeEach
     public void init(TestInfo testInfo) {
         this.testInfo = testInfo;
-        startChromeDriver33();
+        startChromeDriver();
         driver.manage().window().maximize();
 
     }
@@ -42,7 +40,6 @@ public abstract class BaseTest {
 
 
     protected void startFirefoxDriver() {
-
         startFirefoxDriver(new FirefoxOptions());
     }
 

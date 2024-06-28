@@ -21,6 +21,8 @@ public class ActionsSendEmailPage extends BaseActions {
 
 
     public <T> T sendEmail(Letter letter, T actions) {
+
+        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + ".png", driver);
         clickInbox().
                 clickCreateEmail().
                 typeReceiver(letter.receiver()).
@@ -35,14 +37,15 @@ public class ActionsSendEmailPage extends BaseActions {
     }
 
     private ActionsSendEmailPage clickCreateEmail() {
-        makeScreenshot("clickCreateEmail.png", driver);
+        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + ".png", driver);
         wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.buttonCreateEmail())).click();
         return this;
     }
 
     private ActionsSendEmailPage clickInbox() {
-        makeScreenshot("clickInbox.png", driver);
+        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + ".png", driver);
         wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.buttonInbox())).click();
+        makeScreenshot("clickInbox2.png", driver);
         return this;
     }
 
@@ -58,6 +61,7 @@ public class ActionsSendEmailPage extends BaseActions {
 
     public ActionsInboxTableLettersPage toInbox() {
         try {
+            makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + ".png", driver);
             wait.until(ExpectedConditions.visibilityOfElementLocated(sendEmailPage.buttonInbox())).click();
         } catch (StaleElementReferenceException e) {
             toInbox();
@@ -66,6 +70,7 @@ public class ActionsSendEmailPage extends BaseActions {
     }
 
     private <T> T submitSendClick(T actions) {
+        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + "1.png", driver);
         wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.submitSend())).click();
         return actions;
     }
