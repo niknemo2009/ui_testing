@@ -16,6 +16,14 @@ public class ActionsLoginPage extends BaseActions {
         this.loginPage = new LoginPage();
     }
 
+    private static String nameMetod() {
+        return new Object() {
+        }
+                .getClass()
+                .getEnclosingMethod()
+                .getName();
+    }
+
     public <T> T signInUser(User user, T actions) {
         return typeLogin(user.login()).
                 typePassword(user.password()).
@@ -43,14 +51,6 @@ public class ActionsLoginPage extends BaseActions {
         element.click();
         makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + "2.png", driver);
         return actions;
-    }
-
-    private static String nameMetod() {
-        return new Object() {
-        }
-                .getClass()
-                .getEnclosingMethod()
-                .getName();
     }
 }
 

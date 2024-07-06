@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActionsInboxTableLettersPage {
+    protected WebDriverWait wait;
     InboxTableLettersPage inboxTableLettersPage;
     WebDriver driver;
-    protected WebDriverWait wait;
 
 
     public ActionsInboxTableLettersPage(WebDriver driver) {

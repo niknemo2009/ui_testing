@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.time.Duration;
 
 public class BaseActions {
+    public final String FILE_SCREENSHOTS = "./Screenshots/";
     protected WebDriver driver;
     protected WebDriverWait wait;
-    public final String FILE_SCREENSHOTS = "./Screenshots/";
+
     public BaseActions(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));

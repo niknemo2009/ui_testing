@@ -26,14 +26,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class SendReceiveLetterTest extends BaseTest {
-    Logger logger = LoggerFactory.getLogger(SendReceiveLetterTest.class);
-
-    private ActionsLoginPage actionsLoginPage;
-
     private final User EXISTING_USER = new User(System.getProperty("user"), System.getProperty("password"));
     private final String EXPECTED_TITLE = "Пошта @ ukr.net - українська електронна пошта • Створи емейл";
     private final String START_URL = "https://accounts.ukr.net/login";
+    Logger logger = LoggerFactory.getLogger(SendReceiveLetterTest.class);
+    private ActionsLoginPage actionsLoginPage;
 
+    public static Stream<Arguments> matrixBrowsers() {
+        return Stream.of(
+                arguments(0, TypeBrowser.CHROME),
+                arguments(5, TypeBrowser.CHROME),
+                arguments(10, TypeBrowser.CHROME),
+                arguments(0, TypeBrowser.FIREFOX),
+                arguments(5, TypeBrowser.FIREFOX),
+                arguments(10, TypeBrowser.FIREFOX)
+
+        );
+    }
 
     private void setUpTest(int delta, TypeBrowser browser) {
         init(testInfo, delta, browser);
@@ -41,7 +50,6 @@ public class SendReceiveLetterTest extends BaseTest {
         actionsLoginPage = new ActionsLoginPage(driver);
         logger.info(Color.GREEN.value() + "Before each !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Color.RESET.value());
     }
-
 
     @RepeatedTest(1)
     public void sendValidEmail() {
@@ -70,18 +78,6 @@ public class SendReceiveLetterTest extends BaseTest {
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         wait.until(d -> expectedActions.findLetterInInbox(validLetter));
         assertThat(expectedActions.findLetterInInbox(validLetter)).isTrue();
-    }
-
-    public static Stream<Arguments> matrixBrowsers() {
-        return Stream.of(
-                arguments(0, TypeBrowser.CHROME),
-                arguments(5, TypeBrowser.CHROME),
-                arguments(10, TypeBrowser.CHROME),
-                arguments(0, TypeBrowser.FIREFOX),
-                arguments(5, TypeBrowser.FIREFOX),
-                arguments(10, TypeBrowser.FIREFOX)
-
-        );
     }
 
 }
