@@ -83,11 +83,22 @@ public class ActionsSendEmailPage extends BaseActions {
         wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.attachFile())).click();
         try {
             Robot robot = new Robot();
-            Thread.sleep(4000);
+            Thread.sleep(2000);
+            robot.keyPress(KeyEvent.VK_ALT);
+            robot.keyPress(KeyEvent.VK_F7);
+            Thread.sleep(2000);
+            robot.keyRelease(KeyEvent.VK_ALT);
+            robot.keyRelease(KeyEvent.VK_F7);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            Thread.sleep(2000);
+            robot.keyRelease(KeyEvent.VK_ENTER);
             robot.keyPress(KeyEvent.VK_DOWN);
-            Thread.sleep(4000);
-            robot.keyPress(KeyEvent.VK_TAB);
-            Thread.sleep(4000);
+            robot.keyRelease(KeyEvent.VK_DOWN);
+            Thread.sleep(2000);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            robot.keyRelease(KeyEvent.VK_ENTER);
+            Thread.sleep(2000);
+
         } catch (AWTException | InterruptedException e) {
             throw new RuntimeException(e);
         }
