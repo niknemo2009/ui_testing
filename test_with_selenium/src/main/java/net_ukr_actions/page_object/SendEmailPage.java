@@ -13,7 +13,8 @@ public class SendEmailPage {
     private final By buttonInbox = By.xpath("//*[@id=\"0\"]/span[4]");
     private final By iframe = By.id("mce_0_ifr");
     private final By bodyLetter = By.id("tinymce");
-    private final By attachFile = By.id("");
+
+    private final By attachFile = By.cssSelector("button.action.attachments-file-button.button.outline");
     public By buttonCreateEmail() {
         return buttonCreateEmail;
     }
@@ -40,5 +41,9 @@ public class SendEmailPage {
 
     public By bodyLetter() {
         return bodyLetter;
+    }
+
+    public By attachFile() {
+        return attachFile;
     }
 }

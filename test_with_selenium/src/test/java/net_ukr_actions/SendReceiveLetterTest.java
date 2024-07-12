@@ -8,6 +8,7 @@ import net_ukr_actions.model.Letter;
 import net_ukr_actions.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -50,7 +51,22 @@ public class SendReceiveLetterTest extends BaseTest {
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
         var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver))
-                .sendEmail(validLetter, new ActionsSendEmailPage(driver)).
+                .writeEmail(validLetter).submitSendClick(new ActionsSendEmailPage(driver)).
+                toInbox();
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1)); //??????????????????????????????????????
+        wait.until(d -> expectedActions.findLetterInInbox(validLetter));
+        assertThat(expectedActions.findLetterInInbox(validLetter)).isTrue();
+
+
+    }
+
+    @Test
+    public void sendValidEmailWithAttachedFile() {
+        setUpTest(0, TypeBrowser.SAFARI);
+        Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
+        Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
+        var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver))
+                .writeEmail(validLetter).attachFile().attachFile().submitSendClick(new ActionsSendEmailPage(driver)).
                 toInbox();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1)); //??????????????????????????????????????
         wait.until(d -> expectedActions.findLetterInInbox(validLetter));
@@ -64,13 +80,10 @@ public class SendReceiveLetterTest extends BaseTest {
     void test(int delta, TypeBrowser browser) throws AWTException {
         setUpTest(delta, browser);
         evb.log();
-        Robot robot = new Robot();
-        //  robot.
-
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
         var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver))
-                .sendEmail(validLetter, new ActionsSendEmailPage(driver)).
+                .writeEmail(validLetter).submitSendClick(new ActionsSendEmailPage(driver)).
                 toInbox();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         wait.until(d -> expectedActions.findLetterInInbox(validLetter));

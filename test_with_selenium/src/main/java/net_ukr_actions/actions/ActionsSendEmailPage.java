@@ -9,6 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
 public class ActionsSendEmailPage extends BaseActions {
     private final SendEmailPage sendEmailPage;
     private final JavascriptExecutor js;
@@ -19,8 +22,7 @@ public class ActionsSendEmailPage extends BaseActions {
         js = (JavascriptExecutor) driver;
     }
 
-
-    public <T> T sendEmail(Letter letter, T actions) {
+    public ActionsSendEmailPage writeEmail(Letter letter) {
 
         makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + ".png", driver);
         clickInbox().
@@ -32,9 +34,10 @@ public class ActionsSendEmailPage extends BaseActions {
         wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.bodyLetter()));
         js.executeScript("document.getElementById('tinymce').innerHTML=" + letter.generateLettersBody());
         driver.switchTo().defaultContent();
-        return submitSendClick(actions);
+        return this;
 
     }
+
 
     private ActionsSendEmailPage clickCreateEmail() {
         makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + ".png", driver);
@@ -69,11 +72,25 @@ public class ActionsSendEmailPage extends BaseActions {
         return new ActionsInboxTableLettersPage(driver);
     }
 
-    private <T> T submitSendClick(T actions) {
+    public <T> T submitSendClick(T actions) {
         makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + "1.png", driver);
         wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.submitSend())).click();
         return actions;
     }
 
 
+    public ActionsSendEmailPage attachFile() {
+        wait.until(ExpectedConditions.elementToBeClickable(sendEmailPage.attachFile())).click();
+        try {
+            Robot robot = new Robot();
+            Thread.sleep(4000);
+            robot.keyPress(KeyEvent.VK_DOWN);
+            Thread.sleep(4000);
+            robot.keyPress(KeyEvent.VK_TAB);
+            Thread.sleep(4000);
+        } catch (AWTException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return this;
+    }
 }
