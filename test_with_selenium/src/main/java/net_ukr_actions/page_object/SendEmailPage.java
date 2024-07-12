@@ -13,7 +13,7 @@ public class SendEmailPage {
     private final By buttonInbox = By.xpath("//*[@id=\"0\"]/span[4]");
     private final By iframe = By.id("mce_0_ifr");
     private final By bodyLetter = By.id("tinymce");
-
+    private final By attachFile = By.id("");
     public By buttonCreateEmail() {
         return buttonCreateEmail;
     }

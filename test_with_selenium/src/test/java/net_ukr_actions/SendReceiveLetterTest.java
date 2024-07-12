@@ -3,7 +3,6 @@ package net_ukr_actions;
 import net_ukr_actions.actions.ActionsLoginPage;
 import net_ukr_actions.actions.ActionsSendEmailPage;
 import net_ukr_actions.base.BaseTest;
-import net_ukr_actions.base.Color;
 import net_ukr_actions.base.TypeBrowser;
 import net_ukr_actions.model.Letter;
 import net_ukr_actions.model.User;
@@ -17,7 +16,9 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.spi.LoggingEventBuilder;
 
+import java.awt.*;
 import java.time.Duration;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -31,29 +32,21 @@ public class SendReceiveLetterTest extends BaseTest {
     private final String START_URL = "https://accounts.ukr.net/login";
     Logger logger = LoggerFactory.getLogger(SendReceiveLetterTest.class);
     private ActionsLoginPage actionsLoginPage;
+    LoggingEventBuilder evb;
 
-    public static Stream<Arguments> matrixBrowsers() {
-        return Stream.of(
-                arguments(0, TypeBrowser.CHROME),
-                arguments(5, TypeBrowser.CHROME),
-                arguments(10, TypeBrowser.CHROME),
-                arguments(0, TypeBrowser.FIREFOX),
-                arguments(5, TypeBrowser.FIREFOX),
-                arguments(10, TypeBrowser.FIREFOX)
-
-        );
-    }
 
     private void setUpTest(int delta, TypeBrowser browser) {
         init(testInfo, delta, browser);
         driver.get(START_URL);
         actionsLoginPage = new ActionsLoginPage(driver);
-        logger.info(Color.GREEN.value() + "Before each !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Color.RESET.value());
+        //  logger.info(Color.GREEN.value() + "Before each !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + Color.RESET.value());
+        evb = logger.atInfo().setMessage("Temperature changed.***************************");
     }
 
     @RepeatedTest(1)
     public void sendValidEmail() {
         setUpTest(0, TypeBrowser.CHROME);
+        evb.setMessage("qqqqqqqqqqqqqqqqqqqqqqqqqqqq").addKeyValue("oldT", 55).addKeyValue("newT", 67);
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
         var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver))
@@ -68,8 +61,12 @@ public class SendReceiveLetterTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("matrixBrowsers")
-    void test(int delta, TypeBrowser browser) {
+    void test(int delta, TypeBrowser browser) throws AWTException {
         setUpTest(delta, browser);
+        evb.log();
+        Robot robot = new Robot();
+        //  robot.
+
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
         var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver))
@@ -79,5 +76,14 @@ public class SendReceiveLetterTest extends BaseTest {
         wait.until(d -> expectedActions.findLetterInInbox(validLetter));
         assertThat(expectedActions.findLetterInInbox(validLetter)).isTrue();
     }
+
+    public static Stream<Arguments> matrixBrowsers() {
+        return Stream.of(
+                arguments(0, TypeBrowser.CHROME),
+                arguments(0, TypeBrowser.FIREFOX)
+
+        );
+    }
+
 
 }

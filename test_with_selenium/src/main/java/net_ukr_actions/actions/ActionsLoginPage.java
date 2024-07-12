@@ -46,10 +46,8 @@ public class ActionsLoginPage extends BaseActions {
     }
 
     private <T> T submitLogin(T actions) {
-        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + "1.png", driver);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(loginPage.buttonLogin()));
         element.click();
-        makeScreenshot(FILE_SCREENSHOTS + new Throwable().getStackTrace()[0] + "2.png", driver);
         return actions;
     }
 }

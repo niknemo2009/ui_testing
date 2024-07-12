@@ -26,6 +26,7 @@ public class BaseActions {
         try {
             FileUtils.copyFile(source, new File(pathFile));
         } catch (IOException e) {
+
             throw new RuntimeException(e);
         }
     }
