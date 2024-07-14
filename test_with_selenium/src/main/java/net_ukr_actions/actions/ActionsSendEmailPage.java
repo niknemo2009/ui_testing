@@ -86,12 +86,14 @@ public class ActionsSendEmailPage extends BaseActions {
             Thread.sleep(2000);
             robot.keyPress(KeyEvent.VK_ALT);
             robot.keyPress(KeyEvent.VK_F7);
-            Thread.sleep(2000);
             robot.keyRelease(KeyEvent.VK_ALT);
             robot.keyRelease(KeyEvent.VK_F7);
-            robot.keyPress(KeyEvent.VK_ENTER);
             Thread.sleep(2000);
+
+            robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
+            Thread.sleep(2000);
+
             robot.keyPress(KeyEvent.VK_DOWN);
             robot.keyRelease(KeyEvent.VK_DOWN);
             Thread.sleep(2000);
