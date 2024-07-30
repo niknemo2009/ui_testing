@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -100,28 +99,4 @@ public class SendReceiveLetterTest extends BaseTest {
     }
 
 
-    @Listeners({ScreenShooter.class})
-    public static class MainTest {
-        @BeforeClass
-        public void setUp() {
-            Configuration.reportsFolder = "../Screenshots";
-
-        }
-
-        @Test(groups = {"fast"})
-        public void aFastTest() {
-
-            Selenide.open("/client/registration");
-            Selenide.$(By.name("user.name")).val("johny");
-            Selenide.$(By.name("user.gender")).selectRadio("male");
-            Selenide.$("#user.preferredLayout").selectOption("plain");
-            Selenide.$("#user.securityQuestion").selectOptionByText("What is my first car?");
-
-        }
-
-        @Test(groups = {"slow"})
-        public void aSlowTest() {
-            System.out.println("Slow test");
-        }
-    }
 }

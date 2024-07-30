@@ -1,0 +1,25 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:HH:mm:ss.SSS} [%thread] %-5level %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <timestamp key="byData" datePattern="yyyyMMdd"/>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>log-${byData}.html</file>
+        <append>true</append>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.html.HTMLLayout">
+                <pattern>%d{HH:mm:ss.SSS}%thread%-5level%logger{36}%msg</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <logger name="net.ukr.logback" level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

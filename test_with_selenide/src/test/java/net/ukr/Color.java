@@ -1,4 +1,4 @@
-package net_ukr_actions.base;
+package net.ukr;
 
 public enum Color {
 

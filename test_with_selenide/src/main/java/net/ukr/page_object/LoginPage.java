@@ -1,10 +1,9 @@
-package net_ukr_actions.page_object;
+package net.ukr.page_object;
 
 
 import com.codeborne.selenide.SelenideElement;
-import net_ukr_actions.model.User;
+import net.ukr.model.User;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.visible;
@@ -12,16 +11,12 @@ import static com.codeborne.selenide.Selenide.$;
 
 
 public class LoginPage {
-
-    WebDriver driver;
     private final SelenideElement inputLogin;
     private final SelenideElement inputPassword;
     private final SelenideElement buttonLogin;
-
     private final SelenideElement titlePage;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
+    public LoginPage() {
         this.inputLogin = $(By.name("login"));
         this.inputPassword = $(By.name("password"));
         this.buttonLogin = $(By.xpath("//button[text()='Продовжити']"));
