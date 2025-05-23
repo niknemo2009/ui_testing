@@ -44,7 +44,7 @@ public class SendReceiveLetterTest extends BaseTest {
         evb = logger.atInfo().setMessage("Temperature changed.***************************");
     }
 
-    @RepeatedTest(1)
+    @RepeatedTest(3)
     public void sendValidEmail() {
         setUpTest(0, TypeBrowser.CHROME);
         evb.setMessage("qqqqqqqqqqqqqqqqqqqqqqqqqqqq").addKeyValue("oldT", 55).addKeyValue("newT", 67);
@@ -62,7 +62,7 @@ public class SendReceiveLetterTest extends BaseTest {
 
     @Test
     public void sendValidEmailWithAttachedFile() {
-        setUpTest(0, TypeBrowser.SAFARI);
+        setUpTest(0, TypeBrowser.CHROME);
         Assertions.assertEquals(EXPECTED_TITLE, driver.getTitle());
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
         var expectedActions = actionsLoginPage.signInUser(EXISTING_USER, new ActionsSendEmailPage(driver))
@@ -93,8 +93,8 @@ public class SendReceiveLetterTest extends BaseTest {
     public static Stream<Arguments> matrixBrowsers() {
         return Stream.of(
                 arguments(0, TypeBrowser.CHROME),
-                arguments(0, TypeBrowser.FIREFOX)
-
+                arguments(0, TypeBrowser.FIREFOX),
+                arguments(0, TypeBrowser.SAFARI)
         );
     }
 

@@ -48,7 +48,7 @@ public class _33SendReceiveLetterTest {
     @DisplayName("As user I should send ordinary email ")
     public void sendValidEmail() {
         Letter validLetter = new Letter(EXISTING_USER.getEmail(), "test_subject_" + UUID.randomUUID(), "message 133333327777456");
-        logger.error("create letter {}", validLetter.toString());
+        logger.info("create letter {}", validLetter.toString());
         var expectedActions = loginPage.signInUser(EXISTING_USER, new SendEmailPage())
                 .writeEmail(validLetter).submitSendClick(new SendEmailPage()).
                 toInbox();
